@@ -27,23 +27,8 @@
 /* Function:
     volatile uint16_t Aux_PLL_Initialize(void)
 
-  Summary:
-    Routine to configure Auxiliary PLL Oscillator
-
   Description:
     Function configures Auxiliary PLL Oscillator 
-
-  Precondition:
-    None.
-
-  Parameters:
-    None
-
-  Returns:
-    None.
-
-  Remarks:
-    None.
  */
 
 volatile uint16_t Aux_PLL_Initialize(void)

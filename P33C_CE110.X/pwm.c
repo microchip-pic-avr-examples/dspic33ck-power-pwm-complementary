@@ -124,11 +124,13 @@ volatile uint16_t PWM_Initialize(void)
 }
 
 // *****************************************************************************
-/* Function: volatile uint16_t PWM_Generator1_Config(void)
+/* Function: 
+   volatile uint16_t PWM_Generator1_Config(void)
    
-Description:
+ * Description:
  *  
-   This function initializes PWM Generator1 in High-Resolution, 400Khz, 50% D.C., Independent Edge Complementary Mode
+   This function initializes the PWM Generator1 to generate a 400Khz, 50% Duty Cycle, High-Resolution, 
+   Independent Edge aligned Complementary Mode PWM output
  */
 volatile uint16_t PWM_Generator1_Config(void)
 {
