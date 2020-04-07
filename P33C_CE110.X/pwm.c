@@ -20,10 +20,12 @@
  */
 #include "pwm.h"
 
-#define PWM_OUT_FREQUENCY    400e+3
-#define PWM_OUT_PERIOD       (1.0/PWM_OUT_FREQUENCY)
-#define PWM_RESOLUTION       250e-12  // Up to 250 ps PWM Resolution given in Data Sheet
-#define PWM_PERIOD           (volatile uint16_t)(PWM_OUT_PERIOD/PWM_RESOLUTION) 
+#define PWM_GENERATOR       3
+
+#define PWM_OUT_FREQUENCY   400e+3
+#define PWM_OUT_PERIOD      (1.0/PWM_OUT_FREQUENCY)
+#define PWM_RESOLUTION      250e-12  // Up to 250 ps PWM Resolution given in Data Sheet
+#define PWM_PERIOD          (volatile uint16_t)(PWM_OUT_PERIOD/PWM_RESOLUTION) 
 
 #define PWM_DUTY_RATIO      0.50
 #define PWM_DUTY_CYCLE      (volatile uint16_t) (PWM_PERIOD* PWM_DUTY_RATIO)
@@ -116,7 +118,7 @@ volatile uint16_t PWM_Initialize(void)
     PWMEVTE = 0x0000;   // PWM EVENT OUTPUT CONTROL REGISTER E
     PWMEVTF = 0x0000;   // PWM EVENT OUTPUT CONTROL REGISTER F
     
-    PWM_Generator_Config(3);
+    PWM_Generator_Config(PWM_GENERATOR);
     
  
     
