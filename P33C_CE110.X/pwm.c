@@ -30,7 +30,7 @@
 
 
 /* Function Prototype*/
- volatile uint16_t PWM_Generator1_Config(void); 
+volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance); 
  
 
 
@@ -116,7 +116,7 @@ volatile uint16_t PWM_Initialize(void)
     PWMEVTE = 0x0000;   // PWM EVENT OUTPUT CONTROL REGISTER E
     PWMEVTF = 0x0000;   // PWM EVENT OUTPUT CONTROL REGISTER F
     
-    PWM_Generator1_Config();
+    PWM_Generator_Config(3);
     
  
     
@@ -125,8 +125,8 @@ volatile uint16_t PWM_Initialize(void)
 
 // *****************************************************************************
 /* Function: 
-   volatile uint16_t PWM_Generator1_Config(void)
-   
+ * volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_instance)
+ * 
  * Description:
  *  
    This function initializes the PWM Generator1 to generate a 400Khz, 50% Duty Cycle, High-Resolution, 
