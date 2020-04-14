@@ -24,17 +24,23 @@
 
 #include <xc.h>
 #include "hal_pinmap.h"
-
+#include "pwm.h"
 
 
 int main(void)
 
 {
-    
+    P33C_PWM_GENERATOR_t my_pg;
     
     Aux_PLL_Initialize();
     PWM_Initialize();
     PIN_MANAGER_Initialize();
+    
+    my_pg = PG_Read(3);
+    
+    my_pg.PGxIOCONH.bits.PENH = 0;
+    
+    PG_Write(5, my_pg);
     
     while(1);
     

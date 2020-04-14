@@ -228,6 +228,10 @@ extern "C" {
     #define P33C_PWMGEN_SFR_OFFSET  ((volatile uint16_t)&PG2CONL - (volatile uint16_t)&PG1CONL)
 #endif
     
+    
+extern volatile P33C_PWM_GENERATOR_t PG_Write(volatile uint16_t pwm_instance, volatile P33C_PWM_GENERATOR_t pg_config);
+extern volatile P33C_PWM_GENERATOR_t PG_Read(volatile uint16_t pwm_instance);    
+
 #ifdef	__cplusplus
 }
 #endif /* __cplusplus */

@@ -18,6 +18,7 @@
  * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
  * TERMS. 
  */
+#include <xc.h>
 #include "pwm.h"
 
 #define PWM_GENERATOR       3
@@ -135,14 +136,51 @@ volatile uint16_t PWM_Initialize(void)
  * generate a 400Khz, 50% Duty Cycle, High-Resolution, Independent Edge aligned 
  * Complementary Mode PWM output
  */
-volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
+volatile P33C_PWM_GENERATOR_t PG_Read(volatile uint16_t pwm_Instance)
 {
-    
+
+    volatile P33C_PWM_GENERATOR_t pg_config;    
     volatile P33C_PWM_GENERATOR_t* pg;    
 
     // Set pointer to memory address of desired PWM instance
     pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
 
+    
+    pg_config.PGxCONL = pg->PGxCONL;
+    
+    return(pg_config);
+    
+}
+
+volatile P33C_PWM_GENERATOR_t PG_Write(volatile uint16_t pwm_Instance, volatile P33C_PWM_GENERATOR_t pg_config)
+{
+
+    volatile P33C_PWM_GENERATOR_t* pg;    
+
+    // Set pointer to memory address of desired PWM instance
+    pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
+
+    *pg = pg_config;
+    
+    return(pg_config);
+    
+}
+
+
+volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
+{
+    
+    volatile P33C_PWM_GENERATOR_t pg_config;    
+    volatile P33C_PWM_GENERATOR_t* pg;    
+
+    pg_config.PGxCONL.bits.ON = 1;
+    
+    
+    
+    // Set pointer to memory address of desired PWM instance
+    pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
+
+    
     /* PWM GENERATOR 1 CONTROL REGISTER LOW */
     
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
