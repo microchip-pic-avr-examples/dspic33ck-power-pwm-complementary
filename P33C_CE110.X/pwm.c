@@ -18,7 +18,6 @@
  * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
  * TERMS. 
  */
-#include <xc.h>
 #include "pwm.h"
 
 #define PWM_GENERATOR       3
@@ -121,9 +120,67 @@ volatile uint16_t PWM_Initialize(void)
     
     PWM_Generator_Config(PWM_GENERATOR);
     
- 
-    
     return(1);
+}
+
+/* *****************************************************************************
+ * Function: 
+ * volatile uint16_t PWM_Generator_ConfigRead(volatile uint16_t pwm_Instance)
+ * 
+ * Parameters:
+ * uint16_t pwm_Instance: index of the PWM generator peripheral instance 
+ *                        (e.g. '2' for PWM generator PG2)
+ * 
+ * Returns:
+ * P33C_PWM_GENERATOR_t:  generic PWM generator Special Function Register Set
+ *
+ * Description:
+ * This function copies the contents of all PWM generator registers of a certain
+ * generator instance (e.g. PG2) to a user variable of type P33C_PWM_GENERATOR_t.
+ * This 'virtual' PWM configuration can then , for example, be analyzed and/or 
+ * changed by user code and applied to another PWM generator using the function
+ * PWM_Generator_ConfigWrite(xxx).
+ */
+volatile P33C_PWM_GENERATOR_t PWM_Generator_ConfigRead(volatile uint16_t pwm_Instance)
+{
+
+    volatile P33C_PWM_GENERATOR_t pg_config;    
+    volatile P33C_PWM_GENERATOR_t* pg;    
+
+    // Set pointer to memory address of desired PWM instance
+    pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
+    pg_config = *pg;
+    
+    return(pg_config);
+    
+}
+/* *****************************************************************************
+ * Function: 
+ * volatile uint16_t PWM_Generator_ConfigWrite(volatile uint16_t pwm_instance)
+ * 
+ * Parameters:
+ * uint16_t pwm_Instance: index of the PWM generator peripheral instance 
+ *                        (e.g. '2' for PWM generator PG2)
+ * 
+ * Returns:
+ * P33C_PWM_GENERATOR_t:  generic PWM generator Special Function Register Set
+ *
+ * Description:
+ * This function writes a user-defined PWM generator configuration of type 
+ * P33C_PWM_GENERATOR_t to the given PWM generator peripheral instance (e.g. PG2). 
+ */
+
+volatile P33C_PWM_GENERATOR_t PWM_Generator_ConfigWrite(volatile uint16_t pwm_Instance, volatile P33C_PWM_GENERATOR_t pg_config)
+{
+
+    volatile P33C_PWM_GENERATOR_t* pg;    
+
+    // Set pointer to memory address of desired PWM instance
+    pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
+    *pg = pg_config;
+    
+    return(pg_config);
+    
 }
 
 // *****************************************************************************
@@ -136,51 +193,16 @@ volatile uint16_t PWM_Initialize(void)
  * generate a 400Khz, 50% Duty Cycle, High-Resolution, Independent Edge aligned 
  * Complementary Mode PWM output
  */
-volatile P33C_PWM_GENERATOR_t PG_Read(volatile uint16_t pwm_Instance)
-{
-
-    volatile P33C_PWM_GENERATOR_t pg_config;    
-    volatile P33C_PWM_GENERATOR_t* pg;    
-
-    // Set pointer to memory address of desired PWM instance
-    pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
-
-    
-    pg_config.PGxCONL = pg->PGxCONL;
-    
-    return(pg_config);
-    
-}
-
-volatile P33C_PWM_GENERATOR_t PG_Write(volatile uint16_t pwm_Instance, volatile P33C_PWM_GENERATOR_t pg_config)
-{
-
-    volatile P33C_PWM_GENERATOR_t* pg;    
-
-    // Set pointer to memory address of desired PWM instance
-    pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
-
-    *pg = pg_config;
-    
-    return(pg_config);
-    
-}
-
 
 volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
 {
     
-    volatile P33C_PWM_GENERATOR_t pg_config;    
     volatile P33C_PWM_GENERATOR_t* pg;    
 
-    pg_config.PGxCONL.bits.ON = 1;
-    
-    
     
     // Set pointer to memory address of desired PWM instance
     pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
 
-    
     /* PWM GENERATOR 1 CONTROL REGISTER LOW */
     
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
