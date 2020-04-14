@@ -183,8 +183,8 @@ volatile P33C_PWM_GENERATOR_t PWM_Generator_ConfigWrite(volatile uint16_t pwm_In
     
 }
 
-// *****************************************************************************
-/* Function: 
+/* *****************************************************************************
+ * Function: 
  * volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_instance)
  * 
  * Description:
