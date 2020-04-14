@@ -193,7 +193,6 @@
         <property key="legacy-libc" value="true"/>
         <property key="mpreserve-all" value="false"/>
         <property key="oXC16glb-macros" value="__MA330048_dsPIC33CK_DPPIM__"/>
-        <property key="omit-pack-options" value="1"/>
         <property key="output-file-format" value="elf"/>
         <property key="preserve-all" value="false"/>
         <property key="preserve-file" value=""/>
@@ -661,10 +660,6 @@
                   value="report"/>
         <property key="warningmessagebreakoptions.W0245_ADC_BUFREGEN_NOT_ALLOWED"
                   value="report"/>
-        <property key="warningmessagebreakoptions.W0246_ADC_ACCUMULATION_BAD_RESSEL"
-                  value="report"/>
-        <property key="warningmessagebreakoptions.W0247_ADC_CONVERSION_BAD_RESSEL"
-                  value="report"/>
         <property key="warningmessagebreakoptions.W0400_PWM_PWM_FASTER_THAN_FOSC"
                   value="report"/>
         <property key="warningmessagebreakoptions.W0600_WDT_2ND_WDT_MR_WRITE"
@@ -764,8 +759,6 @@
         <property key="warningmessagebreakoptions.W7003_SMT_WIN_SELECTION_NOT_SUPPORT"
                   value="report"/>
         <property key="warningmessagebreakoptions.W8001_OSC_INVALID_CLOCK_SOURCE"
-                  value="report"/>
-        <property key="warningmessagebreakoptions.W8002_OSC_RESERVED_FEXTOSC"
                   value="report"/>
         <property key="warningmessagebreakoptions.W9001_TMR_GATE_AND_EXTCLOCK_ENABLED"
                   value="report"/>
@@ -983,7 +976,6 @@
         <property key="mpreserve-all" value="false"/>
         <property key="oXC16glb-macros"
                   value="__MA330049_dsPIC33CH_DPPIM__;__P33SMPS_CH_MSTR__"/>
-        <property key="omit-pack-options" value="1"/>
         <property key="output-file-format" value="elf"/>
         <property key="preserve-all" value="false"/>
         <property key="preserve-file" value=""/>
