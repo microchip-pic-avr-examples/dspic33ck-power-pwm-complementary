@@ -34,66 +34,18 @@
 // *****************************************************************************
 // *****************************************************************************
 
-extern  volatile uint16_t PWM_Initialize(void);  
+extern  volatile uint16_t PWM_Initialize(void); 
+extern volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance);
+    
+
 
 
 #ifdef	__cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-/* GENERIC PWM MODULE CLOCK AND TIMEBASE SPECIAL FUNCTION REGISTER SET
- * ===================================================================
- *    
- *  This register set of the PWM module is obsolete as there is only one
- *  per device. Providing a 'virtual' register set is therefore not
- *  required.
- * 
- * 
- */
-//    
-//#ifndef P33C_PWM_MODULE_t     
-//    typedef struct {
-//        volatile uint16_t PCLKCON;  // PCLKCON: PWM CLOCK CONTROL REGISTER
-//        volatile uint16_t FSCL;     // FSCL: FREQUENCY SCALE REGISTER
-//        volatile uint16_t FSMINPER; // FSMINPER: FREQUENCY SCALING MINIMUM PERIOD REGISTER
-//        volatile uint16_t MPHASE;   // MPHASE: MASTER PHASE REGISTER
-//        volatile uint16_t MDC;      // MDC: MASTER DUTY CYCLE REGISTER
-//        volatile uint16_t MPER;     // MPER: MASTER PERIOD REGISTER
-//        volatile uint16_t LFSR;     // LFSR: LINEAR FEEDBACK SHIFT REGISTER
-//    } __attribute__((packed)) P33C_PWM_MODULE_t; // PWM MODULE REGISTER SET
-//#endif
-    
-/* GENERIC PWM MODULE OUTPUT LOGIC BLOCK SPECIAL FUNCTION REGISTER SET
- * ===================================================================
- * 
- * 
- */
-    
-#ifndef P33C_PWM_OUTPUT_LOGIC_t     
-    
-    typedef struct{
-        union {   
-            volatile CMBTRIGLBITS bits; // Register bit-field
-            volatile uint16_t value; // 16-bit wide register value
-        }CMBxTRIGL; // CMBTRIGL: COMBINATIONAL TRIGGER REGISTER LOW
-        
-//        volatile uint16_t CMBTRIGH; // CMBTRIGH: COMBINATIONAL TRIGGER REGISTER HIGH
-//        volatile uint16_t LOGCONA;  // LOGCONy: COMBINATORIAL PWM LOGIC CONTROL REGISTER y
-//        volatile uint16_t LOGCONB;  // LOGCONy: COMBINATORIAL PWM LOGIC CONTROL REGISTER y
-//        volatile uint16_t LOGCONC;  // LOGCONy: COMBINATORIAL PWM LOGIC CONTROL REGISTER y
-//        volatile uint16_t LOGCOND;  // LOGCONy: COMBINATORIAL PWM LOGIC CONTROL REGISTER y
-//        volatile uint16_t LOGCONE;  // LOGCONy: COMBINATORIAL PWM LOGIC CONTROL REGISTER y
-//        volatile uint16_t LOGCONF;  // LOGCONy: COMBINATORIAL PWM LOGIC CONTROL REGISTER y
-//        volatile uint16_t PWMEVTA;  // PWMEVTy: PWM EVENT OUTPUT CONTROL REGISTER y
-//        volatile uint16_t PWMEVTB;  // PWMEVTy: PWM EVENT OUTPUT CONTROL REGISTER y
-//        volatile uint16_t PWMEVTC;  // PWMEVTy: PWM EVENT OUTPUT CONTROL REGISTER y
-//        volatile uint16_t PWMEVTD;  // PWMEVTy: PWM EVENT OUTPUT CONTROL REGISTER y
-//        volatile uint16_t PWMEVTE;  // PWMEVTy: PWM EVENT OUTPUT CONTROL REGISTER y
-//        volatile uint16_t PWMEVTF;  // PWMEVTy: PWM EVENT OUTPUT CONTROL REGISTER y
 
-    } __attribute__((packed))P33C_PWM_OUTPUT_LOGIC_t; // PWM MODULE OUTPUT LOGIC BLOCK REGISTER SET
     
-#endif
 
     
 /* GENERIC PWM GENERATOR SPECIAL FUNCTION REGISTER SET
@@ -250,9 +202,8 @@ extern "C" {
     #define P33C_PWMGEN_SFR_OFFSET  ((volatile uint16_t)&PG2CONL - (volatile uint16_t)&PG1CONL)
 #endif
     
-    
 extern volatile P33C_PWM_GENERATOR_t PWM_Generator_ConfigWrite(volatile uint16_t pwm_instance, volatile P33C_PWM_GENERATOR_t pg_config);
-extern volatile P33C_PWM_GENERATOR_t PWM_Generator_ConfigRead(volatile uint16_t pwm_instance);    
+extern volatile P33C_PWM_GENERATOR_t PWM_Generator_ConfigRead(volatile uint16_t pwm_instance);
 
 #ifdef	__cplusplus
 }

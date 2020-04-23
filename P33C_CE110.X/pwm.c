@@ -20,20 +20,15 @@
  */
 #include "pwm.h"
 
-#define PWM_GENERATOR       3
+#define PWM_GENERATOR       1
 
 #define PWM_OUT_FREQUENCY   400e+3
 #define PWM_OUT_PERIOD      (1.0/PWM_OUT_FREQUENCY)
 #define PWM_RESOLUTION      250e-12  // Up to 250 ps PWM Resolution given in Data Sheet
 #define PWM_PERIOD          (volatile uint16_t)(PWM_OUT_PERIOD/PWM_RESOLUTION) 
 
-#define PWM_DUTY_RATIO      0.50
+#define PWM_DUTY_RATIO      0.5
 #define PWM_DUTY_CYCLE      (volatile uint16_t) (PWM_PERIOD* PWM_DUTY_RATIO)
-
-
-/* Function Prototype*/
-volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance); 
- 
 
 
 
@@ -117,12 +112,10 @@ volatile uint16_t PWM_Initialize(void)
     PWMEVTD = 0x0000;   // PWM EVENT OUTPUT CONTROL REGISTER D
     PWMEVTE = 0x0000;   // PWM EVENT OUTPUT CONTROL REGISTER E
     PWMEVTF = 0x0000;   // PWM EVENT OUTPUT CONTROL REGISTER F
-    
-    PWM_Generator_Config(PWM_GENERATOR);
-    
+     
     return(1);
 }
-
+ 
 /* *****************************************************************************
  * Function: 
  * volatile uint16_t PWM_Generator_ConfigRead(volatile uint16_t pwm_Instance)
@@ -213,19 +206,13 @@ volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
     // Therefore this function applies an alternative approach by configuring
     // a 'virtual PWM module' and writes its configuration to any PWM generator
     // specified.
-    
-    // PG1CONLbits.ON = 0;         // Disable PWM Generator1
-    // PG1CONLbits.CLKSEL = 0b01;  // Clock Selection: Selected by PCLKCON.MCLKSEL bits  
-    // PG1CONLbits.MODSEL = 0b000; // Mode Selection: Independent Edge PWM mode 
-    // PG1CONLbits.TRGCNT = 0b000; // Trigger Count Selection: PWM Generator produces 1 PWM cycle after triggered 
-    // PG1CONLbits.HREN = 1;       // PWM Generator 1 High-Resolution Enable bit: PWM Generator 1 operates in High-Resolution mode(
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     pg->PGxCONL.bits.ON = 0;         // Disable PWM generator
     pg->PGxCONL.bits.CLKSEL = 0b01;  // Clock Selection: Selected by PCLKCON.MCLKSEL bits  
     pg->PGxCONL.bits.MODSEL = 0b000; // Mode Selection: Independent Edge PWM mode 
     pg->PGxCONL.bits.TRGCNT = 0b000; // Trigger Count Selection: PWM Generator produces 1 PWM cycle after triggered 
-    pg->PGxCONL.bits.HREN = 1;       // PWM Generator 1 High-Resolution Enable bit: PWM Generator 1 operates in High-Resolution mode(
+    pg->PGxCONL.bits.HREN = 1;       // PWM Generator 1 High-Resolution Enable bit: PWM Generator 1 operates in High-Resolution mode
     
     /* PWM GENERATOR 1 CONTROL REGISTER HIGH */
     pg->PGxCONH.bits.MDCSEL = 0;    // Master Duty Cycle Register Selection: Duty Cycle uses PG1DC Register
@@ -233,7 +220,7 @@ volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
     pg->PGxCONH.bits.MPHSEL = 0;    // Master Phase Register Selection: Phase uses PG1PHASE Register
     pg->PGxCONH.bits.MSTEN = 0;     // Master Update Enable:PWM Generator does not broadcast the UPDREQ status bit state or EOC signal
     pg->PGxCONH.bits.UPDMOD = 0b000;// PWM Buffer Update Mode Selection: SOC update
-    pg->PGxCONH.bits.TRGMOD = 1;    // PWM Generator Trigger Mode:PWM Generator operates in Retriggerable mode
+    pg->PGxCONH.bits.TRGMOD = 0;    // PWM Generator Trigger Mode:PWM Generator operates in PWM Generator operates in Single Trigger mode
     pg->PGxCONH.bits.SOCS = 0;      //Start of Cycle Selection: Local EOC
     
     /*PWM GENERATOR 1 STATUS REGISTER*/
@@ -258,8 +245,8 @@ volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
     pg->PGxIOCONH.bits.CAPSRC = 0b000;  // Time Base Capture Source Selection : No hardware source selected for time base capture ? software only*/
     pg->PGxIOCONH.bits.DTCMPSEL = 0;    // Dead-Time Compensation Select: Dead-time compensation is controlled by PCI Sync logic
     pg->PGxIOCONH.bits.PMOD = 0b00;     // PWM Generator Output Mode Selection bits: PWM Generator outputs operate in Complementary mode
-    pg->PGxIOCONH.bits.PENH = 1;        // PWM1H Output Port Enable bit: PWM Generator controls the PWM1H output pin
-    pg->PGxIOCONH.bits.PENL = 1;        // PWM1L Output Port Enable bit: PWM Generator controls the PWM1L output pin
+    pg->PGxIOCONH.bits.PENH = 0;        // PWM1H Output Port Enable bit: PWM Generator controls the PWM1H output pin
+    pg->PGxIOCONH.bits.PENL = 0;        // PWM1L Output Port Enable bit: PWM Generator controls the PWM1L output pin
     pg->PGxIOCONH.bits.POLH = 0;        // PWM1H Output Polarity bit: 1 = Output pin is active-low
     pg->PGxIOCONH.bits.POLL = 0;        // PWM1L Output Polarity bit:  0 = Output pin is active-high
     
@@ -272,7 +259,7 @@ volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
     pg->PGxEVTL.bits.PGTRGSEL = 0b000;  // PWM Generator Trigger Output Selection bits: EOC event is the PWM Generator trigger
     
     /* PWM GENERATOR 1 EVENT REGISTER HIGH */
-    pg->PGxEVTH.value = 0x0000;    // Reset register
+    pg->PGxEVTH.value = 0x0000;         // Reset register
     pg->PGxEVTH.bits.FLTIEN = 0;        // PCI Fault Interrupt Enable bit: Fault interrupt is disabled
     pg->PGxEVTH.bits.CLIEN = 0;         // PCI Current Limit Interrupt Enable bit: Current limit interrupt is disabled
     pg->PGxEVTH.bits.FFIEN = 0;         // PCI Feed-Forward Interrupt Enable bit: Feed-forward interrupt is disabled
@@ -301,14 +288,14 @@ volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
     pg->PGxPHASE.value = 0;
     
     /*PGxDC: PWM GENERATOR x DUTY CYCLE REGISTER */
-    pg->PGxDC.value    = PWM_DUTY_CYCLE;     
+    pg->PGxDC.value = PWM_DUTY_CYCLE;     
     
     /* PGxDCA: PWM GENERATOR x DUTY CYCLE ADJUSTMENT REGISTER */
-    pg->PGxDCA.value   = 0x0000;      
+    pg->PGxDCA.value = 0x0000;      
     
     /* PGxPER: PWM GENERATOR x PERIOD REGISTER  */       
-    pg->PGxPER.value   = PWM_PERIOD;   
-
+    pg->PGxPER.value = PWM_PERIOD;   
+        
     /*PGxTRIGA: PWM GENERATOR x TRIGGER A REGISTER */
     pg->PGxTRIGA.value = 0;  
     
@@ -324,9 +311,54 @@ volatile uint16_t PWM_Generator_Config(volatile uint16_t pwm_Instance)
     /*PGxDTH: PWM GENERATOR x DEAD-TIME REGISTER */
     pg->PGxDTH.bits.DTH = 0;      
             
-   
-    pg->PGxCONL.bits.ON = 1;   // Enable PG1  
-    
-    return(pg->PGxCONL.bits.ON); // Return Enable bit
+     
+   return(pg->PGxCONL.bits.ON); // Return Enable bit
 }
+ 
+
+/* *****************************************************************************
+ * Function: 
+ * volatile uint16_t PWM_Generator_Enable(volatile uint16_t pwm_Instance)
+ * 
+ * Description:
+ *  
+ * This function enables the PWM Generator and adds delay before enabling  
+ * PWM output pins
+ */
+
+    
+volatile uint16_t PWM_Generator_Enable(volatile uint16_t pwm_Instance)
+{
+    volatile uint16_t fres=1;
+    
+    volatile uint16_t timeout=0;
+ 
+    volatile P33C_PWM_GENERATOR_t* pg;    
+
+    
+    // Set pointer to memory address of desired PWM instance
+    pg = (volatile P33C_PWM_GENERATOR_t*) ((volatile uint8_t*) &PG1CONL + ((pwm_Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
+
+    pg->PGxIOCONH.bits.PENH = 0;
+
+    pg->PGxIOCONH.bits.PENL = 0;
+    
+    pg->PGxCONL.bits.ON = 1;
+    
+    pg->PGxSTAT.bits.UPDREQ = 1;
+   
+    if(pg->PGxCONL.bits.HREN)
+    {
+        while((!PCLKCONbits.HRRDY) && (timeout++<5000));
+         if ((timeout >= 5000) || (PCLKCONbits.HRERR)) // if there is an error
+            return(0);  // return ERROR     
+        
+    }
+    
+    pg->PGxIOCONH.bits.PENH = 1;
   
+    pg->PGxIOCONH.bits.PENL = 1;
+    
+    return(fres);       
+    
+}

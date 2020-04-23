@@ -23,29 +23,23 @@
 
 
 #include <xc.h>
+
 #include "hal_pinmap.h"
 #include "pwm.h"
 
 
+
+
 int main(void)
 
-{
-    P33C_PWM_GENERATOR_t my_pg1;
-    P33C_PWM_GENERATOR_t my_pg4;
-    
+{   
+ 
     Aux_PLL_Initialize();
-    PWM_Initialize();
     PIN_MANAGER_Initialize();
-    
-    my_pg1 = PWM_Generator_ConfigRead(3);                // Grab existing config of PG3
-    my_pg1.PGxIOCONH.bits.PENH = 0;     // Change 'my tihing'
-    PWM_Generator_ConfigWrite(5, my_pg1);                 // Write ot PG5
-
-    my_pg4 = PWM_Generator_ConfigRead(3);                // Grab existing config of PG3
-    my_pg4.PGxIOCONL.bits.OVRENH = 0;   // Change 'my tihing'
-    PWM_Generator_ConfigWrite(6, my_pg4);                // Write ot PG6
-
-    
+    PWM_Initialize();
+    PWM_Generator_Config(1);
+    PWM_Generator_Enable(1);
+   
     while(1);
     
     return 0;
