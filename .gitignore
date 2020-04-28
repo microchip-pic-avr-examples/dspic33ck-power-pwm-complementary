@@ -38,6 +38,8 @@ Makefile-genesis.properties
 # Misc
 .svn
 *.bak
+*.doc
+*.docx
 
 
 
