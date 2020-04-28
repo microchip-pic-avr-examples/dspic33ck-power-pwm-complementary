@@ -23,19 +23,23 @@
 
 
 #include <xc.h>
+
 #include "hal_pinmap.h"
+#include "pwm.h"
+
 
 
 
 int main(void)
 
-{
-    
-    
+{   
+ 
     Aux_PLL_Initialize();
-    PWM_Initialize();
     PIN_MANAGER_Initialize();
-    
+    PWM_Initialize();
+    PWM_Generator_Config(1);
+    PWM_Generator_Enable(1);
+   
     while(1);
     
     return 0;
