@@ -1,26 +1,9 @@
-<div id="readme" class="Box-body readme blob js-code-block-container">
- <article class="markdown-body entry-content p-3 p-md-6" itemprop="This needs to locked down and 'never' changed"><p><a href="https://www.microchip.com" rel="nofollow"><img src="images/microchip.png" alt="MCHP" width="300";"></a></p>
- 
-## pic24f-hello-world-uart
+# P33C_CE110: High-Resolution PWM Configuration I
+**Complementary PWM Waveform Generation**
 
-Board Image if any.
+Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration of the high-resolution PWM module and one PWM channel to generate a single, complementary PWM waveform
 
-## Summary
-
-
-## Related Documentation
-
-
-## Software Used 
-
-
-## Hardware Used
-
-
-## Setup
-
-
-## Operation
-
-
+Hardware used: 
+* dsPIC33CK256MP506 Digital Power Plug-In Module (MA330048)
+* Digital Power Development Board (DM330029)
 
