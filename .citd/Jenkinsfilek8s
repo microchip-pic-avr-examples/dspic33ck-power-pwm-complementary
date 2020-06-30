@@ -1,0 +1,198 @@
+pipeline {
+    agent {
+        kubernetes {
+            label 'github_deployment'
+			defaultContainer 'xc16-mplabx-sonar-fmpp-python'
+            yamlFile '.citd/cloudprovider.yml'
+        }
+    }
+   
+
+	environment {
+	    NOTIFICATION_EMAIL = '1f1319de.microchip.com@amer.teams.ms'	
+		//Update this URL based on where(which organization) it needs to be deployed
+		GITHUB_URL ='https://github.com/mchpTestArea'
+		//This is the BitBucket repo URL which we want to deploy
+		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/dspic33c-power-pwm-complementary.git'	
+		//Branch to be deployed, if multiple branches use comma separated string
+		DEPLOY_BRANCH = 'master'
+		GITHUB_CREDENTIAL_ID = 'GITHUB_PIC_AVR_TEST_TOKEN'
+		CHANGE_LOG_PATH = 'deploy_sandbox/changelog.md'
+		SOURCE_PROJECT_META_DATA = '.main-meta/main.json'
+		DEPLOY_TOOL_URL = 'https://bitbucket.microchip.com/scm/citd/tool-github-deploy.git'
+	}
+
+    options {
+        timestamps()
+        timeout(time: 20, unit: 'MINUTES')
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                   execute("git clone https://bitbucket.microchip.com/scm/citd/tool-mplabx-c-build.git")
+                   execute("cd ./tool-mplabx-c-build && node buildLauncher.js sp=../ rp=./output genMK=true")
+               }
+            }
+        }
+	   
+	    // Cloning the tool used for GitHub deployment
+	   	stage('GitHub tool clone'){
+            steps{
+               script{
+                    execute("git clone https://bitbucket.microchip.com/scm/citd/tool-github-deploy.git")
+                    execute("chmod +x ./tool-github-deploy/tool-github-deploy/tool-github-deploy.py")                    
+                }
+            }
+        } 
+		
+	    // GitHub repo creation 
+	    stage('GitHub Repo Creation'){
+			when {
+                    anyOf {
+                        expression { !env.GITHUB_URL.contains('microchip-pic-avr-examples') } 
+                        allOf {
+                            not { changeRequest() }
+                            branch 'master'
+                        }
+                    }
+            }
+            steps{
+                script{
+                    def jsonObj = readJsonObject();
+                    
+                    String [] topics = jsonObj.content.keywords
+                    def asString = topics.join(", ")
+                    asString = asString.replace("\n", "").replace(" ", "").replace("\t", "").replace("\r", "")
+					Boolean visibility =  true
+					if(env.GITHUB_URL.contains('microchip-pic-avr-examples'))
+					{
+					   visibility = false
+					}
+                    
+                    withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rpo=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=${jsonObj.content.projectName} -rpd=\"${jsonObj.content.shortDescription}\" -rpt=${asString} -rpp=${visibility}")
+                    }
+                }
+            }
+        } 
+	
+	    // Deploying the code to GitHub 
+		stage('GitHub Deploy Source'){
+			when {
+                    anyOf {
+                        expression { !env.GITHUB_URL.contains('microchip-pic-avr-examples') } 
+                        allOf {
+                            not { changeRequest() }
+                            branch 'master'
+                        }
+                    }
+            }
+            steps{
+                script{
+                    def jsonObj = readJsonObject();
+                    def gitHubUrl = "${env.GITHUB_URL}" + "/" + jsonObj.content.projectName
+                    gitHubUrl = gitHubUrl.replace(" ", "").replace("\n", "")
+					Boolean visibility =  true
+					if(env.GITHUB_URL.contains('microchip-pic-avr-examples'))
+					{
+					   visibility = false
+					}
+                    
+                    withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
+      				    // If the organization is "mchpTestArea" change the visibility to public before deploy
+						if(visibility == true)
+						{
+                            execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rpu=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=${jsonObj.content.projectName} -rpp=false")
+						}
+					    
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -deploy=true -gpat=$PASS -dgid=$USER_NAME -dburl=${env.BITBUCKET_URL} -dgurl=${gitHubUrl}  -dbranch=${env.DEPLOY_BRANCH}")
+						
+						// If the organization is "mchpTestArea" change the visibility to private after deploy
+						if(visibility == true)
+						{
+                            execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rpu=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=${jsonObj.content.projectName} -rpp=true")
+						}
+                    }
+                }
+            }
+        }
+		
+		// Creating GitHub release  
+		stage('GitHub release'){
+			when {
+                    anyOf {
+                        expression { !env.GITHUB_URL.contains('microchip-pic-avr-examples') } 
+                        allOf {
+                            not { changeRequest() }
+                            branch 'master'
+                        }
+                    }
+            }
+            steps{
+               script{
+                    def jsonObj = readJsonObject();
+                    
+                    withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rlo=true -gpat=$PASS -rpn=\"${jsonObj.content.projectName}\" -rltv=\"v${jsonObj.content.version}\" -rltt=\"${jsonObj.content.version}\" -rlnp=${env.CHANGE_LOG_PATH}")
+                    }
+                }
+            }
+        }
+        
+      }
+
+    post {
+        success{
+            script {
+                if (!"${env.CHANGE_AUTHOR_EMAIL}".equalsIgnoreCase("null")) {
+				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+                    mail to: "${env.CHANGE_AUTHOR_EMAIL}, ${env.NOTIFICATION_EMAIL}",
+                    subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Something is right with ${env.BUILD_URL}"
+                } else {
+				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+                    mail to: "${env.NOTIFICATION_EMAIL}",
+                    subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Something is right with ${env.BUILD_URL}"
+                }
+            }
+        }
+        failure {
+            script {
+                if (!"${env.CHANGE_AUTHOR_EMAIL}".equalsIgnoreCase("null")) {
+				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+                    mail to: "${env.CHANGE_AUTHOR_EMAIL}, ${env.NOTIFICATION_EMAIL}",
+                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Pipeline failure. ${env.BUILD_URL}"
+                } else {
+				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+                    mail to: "${env.NOTIFICATION_EMAIL}",
+                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Pipeline failure. ${env.BUILD_URL}"
+                }
+            }
+        }
+    }
+}
+
+def execute(String command) {
+    if (isUnix()) {
+        sh command
+    } else {
+        bat command
+    }
+}
+
+String readJsonObject() {
+    def jsonObj  = readJSON interpolate: true, file: "${env.SOURCE_PROJECT_META_DATA}"
+    return jsonObj
+}

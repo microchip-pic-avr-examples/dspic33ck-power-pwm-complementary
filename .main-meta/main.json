@@ -1,0 +1,50 @@
+{
+  "metaDataVersion": "1.0.0",
+  "category": "com.microchip.ide.project",
+  "content": {
+    "metaDataVersion": "1.0.0",
+    "name": "com.microchip.mplabx.project.dspic33c-power-pwm-complementary",
+    "version": "1.0.0",
+    "displayName": "xxxxxxxxxxxxxxx",
+    "projectName": "dspic33c-power-pwm-complementary",
+    "shortDescription": "xxxxxxxxxxxxxxx",
+	"ide": {
+		"name": "MPLABX",
+		"semverRange": ">=5.40.0"
+	},
+	"compiler": {
+		"name": "XC16",
+		"semverRange": "^1.50.0"
+	},
+	"dfp": {
+		"name": "PIC24F-GA-GB_DFP",
+		"semverRange": "^1.0.41"
+	},
+	"device": {
+		"metaDataVersion": "1.0.0",
+		"category": "com.microchip.portal.contentRef",
+		"content": {
+			"metaDataVersion": "1.0.0",
+			"category": "com.microchip.device",
+			"name": "xxxxxxxxxxxxxxx",
+			"versionRange": "*"
+		}
+	},
+	"subcategories":[
+		"Hello World",
+		[
+			"Peripherals",
+			"GPIO",
+			"UART"
+		]
+	],
+	"peripherals": [
+		"GPIO",
+		"UART"
+	],
+	"keywords": [
+		"GPIO",
+		"UART"
+	]
+  }
+}
