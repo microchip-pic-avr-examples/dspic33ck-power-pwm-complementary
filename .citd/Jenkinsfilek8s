@@ -9,13 +9,17 @@ pipeline {
    
 
 	environment {
-	    NOTIFICATION_EMAIL = '1f1319de.microchip.com@amer.teams.ms'	
-		//Update this URL based on where(which organization) it needs to be deployed
-		GITHUB_URL ='https://github.com/mchpTestArea'
-		//This is the BitBucket repo URL which we want to deploy
-		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/dspic33c-power-pwm-complementary.git'	
+	    NOTIFICATION_EMAIL = 'e50beea8.microchip.com@amer.teams.ms'	
 		//Branch to be deployed, if multiple branches use comma separated string
-		DEPLOY_BRANCH = 'master'
+		DEPLOY_BRANCH = "${env.BRANCH_NAME}"
+		//This is the BitBucket repo URL which we want to deploy
+		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/pic24f-hello-world-uart.git'
+		BITBUCKET_CREDENTIAL_ID = 'BITBUCKET_ACCESS_TOKEN'
+        //URL of actual production deployment		
+		GITHUB_PRODUCTION_DEPLOY_URL ='https://github.com/microchip-pic-avr-examples'
+		//URL for test deployment
+		GITHUB_TEST_DEPLOY_URL ='https://github.com/mchpTestArea'
+		GITHUB_URL = "${env.BRANCH_NAME == 'master' ? env.GITHUB_PRODUCTION_DEPLOY_URL : env.GITHUB_TEST_DEPLOY_URL}"
 		GITHUB_CREDENTIAL_ID = 'GITHUB_PIC_AVR_TEST_TOKEN'
 		CHANGE_LOG_PATH = 'deploy_sandbox/changelog.md'
 		SOURCE_PROJECT_META_DATA = '.main-meta/main.json'
@@ -46,6 +50,14 @@ pipeline {
 	   
 	    // Cloning the tool used for GitHub deployment
 	   	stage('GitHub tool clone'){
+			when {
+                    anyOf {
+                        allOf {
+                            not { changeRequest() }
+                            anyOf {branch 'master'; branch 'test_deploy';}
+                        }
+                    }
+            }
             steps{
                script{
                     execute("git clone https://bitbucket.microchip.com/scm/citd/tool-github-deploy.git")
@@ -54,14 +66,34 @@ pipeline {
             }
         } 
 		
+		// Creating tag in Bitbucket repo
+	   	stage('Bitbucket Tag Creation'){
+			when {
+                    anyOf {
+                        allOf {
+                            not { changeRequest() }
+                            anyOf {branch 'master'; branch 'test_deploy';}
+                        }
+                    }
+            }
+            steps{
+               script{
+                    def jsonObj = readJsonObject();
+                    
+                    withCredentials([usernamePassword(credentialsId: "${env.BITBUCKET_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -bto=true -rpn=\"${jsonObj.content.projectName}\" -bid=$USER_NAME -bpat=$PASS -bpn=MCU16CE -btv=\"${jsonObj.content.version}\" -bch=${env.GIT_COMMIT} -btd=\"v${jsonObj.content.version}\"")
+                    }
+                }
+            }
+        }
+		
 	    // GitHub repo creation 
 	    stage('GitHub Repo Creation'){
 			when {
                     anyOf {
-                        expression { !env.GITHUB_URL.contains('microchip-pic-avr-examples') } 
                         allOf {
                             not { changeRequest() }
-                            branch 'master'
+                            anyOf {branch 'master'; branch 'test_deploy';}
                         }
                     }
             }
@@ -89,10 +121,9 @@ pipeline {
 		stage('GitHub Deploy Source'){
 			when {
                     anyOf {
-                        expression { !env.GITHUB_URL.contains('microchip-pic-avr-examples') } 
                         allOf {
                             not { changeRequest() }
-                            branch 'master'
+                            anyOf {branch 'master'; branch 'test_deploy';}
                         }
                     }
             }
@@ -101,26 +132,9 @@ pipeline {
                     def jsonObj = readJsonObject();
                     def gitHubUrl = "${env.GITHUB_URL}" + "/" + jsonObj.content.projectName
                     gitHubUrl = gitHubUrl.replace(" ", "").replace("\n", "")
-					Boolean visibility =  true
-					if(env.GITHUB_URL.contains('microchip-pic-avr-examples'))
-					{
-					   visibility = false
-					}
                     
                     withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
-      				    // If the organization is "mchpTestArea" change the visibility to public before deploy
-						if(visibility == true)
-						{
-                            execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rpu=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=${jsonObj.content.projectName} -rpp=false")
-						}
-					    
                         execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -deploy=true -gpat=$PASS -dgid=$USER_NAME -dburl=${env.BITBUCKET_URL} -dgurl=${gitHubUrl}  -dbranch=${env.DEPLOY_BRANCH}")
-						
-						// If the organization is "mchpTestArea" change the visibility to private after deploy
-						if(visibility == true)
-						{
-                            execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rpu=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=${jsonObj.content.projectName} -rpp=true")
-						}
                     }
                 }
             }
@@ -130,10 +144,9 @@ pipeline {
 		stage('GitHub release'){
 			when {
                     anyOf {
-                        expression { !env.GITHUB_URL.contains('microchip-pic-avr-examples') } 
                         allOf {
                             not { changeRequest() }
-                            branch 'master'
+                            anyOf {branch 'master'; branch 'test_deploy';}
                         }
                     }
             }
@@ -154,12 +167,12 @@ pipeline {
         success{
             script {
                 if (!"${env.CHANGE_AUTHOR_EMAIL}".equalsIgnoreCase("null")) {
-				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
                     mail to: "${env.CHANGE_AUTHOR_EMAIL}, ${env.NOTIFICATION_EMAIL}",
                     subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Something is right with ${env.BUILD_URL}"
                 } else {
-				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
                     mail to: "${env.NOTIFICATION_EMAIL}",
                     subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Something is right with ${env.BUILD_URL}"
