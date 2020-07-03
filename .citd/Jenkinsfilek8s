@@ -13,7 +13,7 @@ pipeline {
 		//Branch to be deployed, if multiple branches use comma separated string
 		DEPLOY_BRANCH = "${env.BRANCH_NAME}"
 		//This is the BitBucket repo URL which we want to deploy
-		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/pic24f-hello-world-uart.git'
+		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/dspic33c-power-pwm-complementary.git'
 		BITBUCKET_CREDENTIAL_ID = 'BITBUCKET_ACCESS_TOKEN'
         //URL of actual production deployment		
 		GITHUB_PRODUCTION_DEPLOY_URL ='https://github.com/microchip-pic-avr-examples'
