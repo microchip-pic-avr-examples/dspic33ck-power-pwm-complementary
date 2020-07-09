@@ -9,7 +9,7 @@ pipeline {
    
 
 	environment {
-	    NOTIFICATION_EMAIL = 'e50beea8.microchip.com@amer.teams.ms'	
+	    NOTIFICATION_EMAIL = '1f1319de.microchip.com@amer.teams.ms'	
 		//Branch to be deployed, if multiple branches use comma separated string
 		DEPLOY_BRANCH = "${env.BRANCH_NAME}"
 		//This is the BitBucket repo URL which we want to deploy
