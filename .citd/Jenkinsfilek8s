@@ -21,6 +21,8 @@ pipeline {
 		GITHUB_TEST_DEPLOY_URL ='https://github.com/mchpTestArea'
 		GITHUB_URL = "${env.BRANCH_NAME == 'master' ? env.GITHUB_PRODUCTION_DEPLOY_URL : env.GITHUB_TEST_DEPLOY_URL}"
 		GITHUB_CREDENTIAL_ID = 'GITHUB_PIC_AVR_TEST_TOKEN'
+		//Files or folders to be excluded from deployment
+		FOLDER_EXCLUDE = 'mchp_private"
 		CHANGE_LOG_PATH = 'deploy_sandbox/changelog.md'
 		SOURCE_PROJECT_META_DATA = '.main-meta/main.json'
 		DEPLOY_TOOL_URL = 'https://bitbucket.microchip.com/scm/citd/tool-github-deploy.git'
@@ -134,7 +136,7 @@ pipeline {
                     gitHubUrl = gitHubUrl.replace(" ", "").replace("\n", "")
                     
                     withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
-                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -deploy=true -gpat=$PASS -dgid=$USER_NAME -dburl=${env.BITBUCKET_URL} -dgurl=${gitHubUrl}  -dbranch=${env.DEPLOY_BRANCH}")
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -deploy=true -gpat=$PASS -dgid=$USER_NAME -dburl=${env.BITBUCKET_URL} -dgurl=${gitHubUrl}  -dbranch=${env.DEPLOY_BRANCH} -def=${env.FOLDER_EXCLUDE}")
                     }
                 }
             }
