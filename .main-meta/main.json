@@ -30,14 +30,6 @@
 			"versionRange": "*"
 		}
 	},
-	"subcategories":[
-		"Hello World",
-		[
-			"Peripherals",
-			"GPIO",
-			"UART"
-		]
-	],
 	"peripherals": [
 		"GPIO",
 		"UART"
