@@ -5,9 +5,9 @@
     "metaDataVersion": "1.0.0",
     "name": "com.microchip.mplabx.project.dspic33c-power-pwm-complementary",
     "version": "1.0.0",
-    "displayName": "xxxxxxxxxxxxxxx",
+    "displayName": "dsPIC33C PWM Configuration: Complementary PWM Output",
     "projectName": "dspic33c-power-pwm-complementary",
-    "shortDescription": "xxxxxxxxxxxxxxx",
+    "shortDescription": "Complementary PWM Output Configuraiton Example for dsPIC33C devices",
 	"ide": {
 		"name": "MPLABX",
 		"semverRange": ">=5.40.0"
@@ -17,8 +17,8 @@
 		"semverRange": "^1.50.0"
 	},
 	"dfp": {
-		"name": "PIC24F-GA-GB_DFP",
-		"semverRange": "^1.0.41"
+		"name": "dsPIC33CK-MP_DFP",
+		"semverRange": "^1.4.102"
 	},
 	"device": {
 		"metaDataVersion": "1.0.0",
@@ -26,25 +26,31 @@
 		"content": {
 			"metaDataVersion": "1.0.0",
 			"category": "com.microchip.device",
-			"name": "xxxxxxxxxxxxxxx",
+			"name": "dsPIC33C",
 			"versionRange": "*"
 		}
 	},
 	"subcategories":[
-		"Hello World",
+		"SMPS",
 		[
 			"Peripherals",
 			"GPIO",
-			"UART"
+			"PWM", 
+			"Timer"
 		]
 	],
 	"peripherals": [
 		"GPIO",
-		"UART"
+		"PWM",
+		"Timer"
 	],
 	"keywords": [
-		"GPIO",
-		"UART"
+		"dsc",
+		"dspic",
+		"power",
+		"power-conversion",
+		"power-supply",
+		"smps"
 	]
   }
 }
