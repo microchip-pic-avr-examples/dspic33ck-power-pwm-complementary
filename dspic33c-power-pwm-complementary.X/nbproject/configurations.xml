@@ -12,7 +12,6 @@
       </logicalFolder>
       <logicalFolder name="f2" displayName="drivers" projectFiles="true">
         <itemPath>sources/drivers/p33c_pwm.h</itemPath>
-        <itemPath>sources/drivers/p33c_pwm_templates.h</itemPath>
       </logicalFolder>
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"

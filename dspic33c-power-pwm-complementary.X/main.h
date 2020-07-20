@@ -39,7 +39,6 @@
 
 // include application specific header files
 #include "config/hal.h"
-//#include "drivers/p33c_pwm_templates.h"
 #include "pwm.h"
 
 #ifdef	__cplusplus
