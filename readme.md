@@ -45,7 +45,15 @@ Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration o
 <br><center><img src="images/dm330029.jpg" width="400"></center>
 
 ## Operation
-After startup, PWM generator #3 is generating a 200 kHz complementary waveform at the PWM3H/PWM3L outputs. By pressing the on-board push button *USER* on the Digital Power Development Board, the switching frequency is toggled between the initial 200 kHz and 1 MHz.
+After startup, PWM generator #3 is generating a 200 kHz complementary waveform at the PWM3H/PWM3L outputs. 
+
+<br><center><img src="images/pwm200kHz.png" width="400"></center>
+*200 kHz Switching Frequency Output*
+
+By pressing the on-board push button *USER* on the Digital Power Development Board, the switching frequency is toggled between the initial 200 kHz and 1 MHz.
+<br><center><img src="images/pwm1MHz.png" width="400"></center>
+*1 MHz Switching Frequency Output*
+
 
 Please refer to section *FIRMWARE QUICK-START GUIDE* below for more information.
 
