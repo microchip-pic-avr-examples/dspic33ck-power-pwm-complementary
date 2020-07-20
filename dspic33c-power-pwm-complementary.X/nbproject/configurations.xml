@@ -4,13 +4,33 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>DM330029_R20_pinmap.h</itemPath>
-      <itemPath>MA330048_R30_pinmap.h</itemPath>
-      <itemPath>MA330049_R10_pinmap.h</itemPath>
-      <itemPath>clock.h</itemPath>
-      <itemPath>hal_pinmap.h</itemPath>
-      <itemPath>pin_manager.h</itemPath>
-      <itemPath>pwm.h</itemPath>
+      <logicalFolder name="f1" displayName="config" projectFiles="true">
+        <itemPath>sources/config/dm330029_r20_pinmap.h</itemPath>
+        <itemPath>sources/config/hal.h</itemPath>
+        <itemPath>sources/config/ma330048_r30_pinmap.h</itemPath>
+        <itemPath>sources/config/ma330049_r10_pinmap.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="drivers" projectFiles="true">
+        <itemPath>sources/drivers/p33c_pwm.h</itemPath>
+        <itemPath>sources/drivers/p33c_pwm_templates.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="MCC Generated Files"
+                     displayName="MCC Generated Files"
+                     projectFiles="true">
+        <itemPath>mcc_generated_files/interrupt_manager.h</itemPath>
+        <itemPath>mcc_generated_files/watchdog.h</itemPath>
+        <itemPath>mcc_generated_files/pin_manager.h</itemPath>
+        <itemPath>mcc_generated_files/reset.h</itemPath>
+        <itemPath>mcc_generated_files/tmr1.h</itemPath>
+        <itemPath>mcc_generated_files/clock.h</itemPath>
+        <itemPath>mcc_generated_files/traps.h</itemPath>
+        <itemPath>mcc_generated_files/system_types.h</itemPath>
+        <itemPath>mcc_generated_files/reset_types.h</itemPath>
+        <itemPath>mcc_generated_files/mcc.h</itemPath>
+        <itemPath>mcc_generated_files/system.h</itemPath>
+      </logicalFolder>
+      <itemPath>main.h</itemPath>
+      <itemPath>sources/pwm.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,16 +39,31 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>clock.c</itemPath>
-      <itemPath>config_bits.c</itemPath>
+      <logicalFolder name="f1" displayName="config" projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="drivers" projectFiles="true">
+        <itemPath>sources/drivers/p33c_pwm.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="MCC Generated Files"
+                     displayName="MCC Generated Files"
+                     projectFiles="true">
+        <itemPath>mcc_generated_files/reset.c</itemPath>
+        <itemPath>mcc_generated_files/tmr1.c</itemPath>
+        <itemPath>mcc_generated_files/system.c</itemPath>
+        <itemPath>mcc_generated_files/clock.c</itemPath>
+        <itemPath>mcc_generated_files/traps.c</itemPath>
+        <itemPath>mcc_generated_files/interrupt_manager.c</itemPath>
+        <itemPath>mcc_generated_files/mcc.c</itemPath>
+        <itemPath>mcc_generated_files/pin_manager.c</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
-      <itemPath>pin_manager.c</itemPath>
-      <itemPath>pwm.c</itemPath>
+      <itemPath>sources/pwm.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
+      <itemPath>sources/config/device_setup.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -48,8 +83,10 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="dsPIC33CK-MP_DFP" vendor="Microchip" version="1.3.90"/>
+        <pack name="dsPIC33CK-MP_DFP" vendor="Microchip" version="1.4.102"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
@@ -89,7 +126,8 @@
         <property key="enable-short-double" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="C:\Program Files\Microchip\xc16\v1.50\support\dsPIC33C\h"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>
@@ -186,13 +224,14 @@
         <property key="warn-section-align" value="false"/>
       </C30-LD>
       <C30Global>
-        <property key="common-include-directories" value=""/>
+        <property key="common-include-directories" value="sources;mcc_generated_files"/>
         <property key="dual-boot-partition" value="0"/>
         <property key="fast-math" value="false"/>
         <property key="generic-16-bit" value="false"/>
         <property key="legacy-libc" value="true"/>
         <property key="mpreserve-all" value="false"/>
-        <property key="oXC16glb-macros" value="__MA330048_dsPIC33CK_DPPIM__"/>
+        <property key="oXC16glb-macros"
+                  value="__DM330029_R20__;__MA330048_dsPIC33CK_DPPIM__"/>
         <property key="omit-pack-options" value="1"/>
         <property key="output-file-format" value="elf"/>
         <property key="preserve-all" value="false"/>
@@ -224,14 +263,14 @@
         <property key="MCCP/SCCP 7" value="true"/>
         <property key="MCCP/SCCP 8" value="true"/>
         <property key="MCCP/SCCP 9" value="true"/>
-        <property key="PG1" value="true"/>
-        <property key="PG2" value="true"/>
-        <property key="PG3" value="true"/>
-        <property key="PG4" value="true"/>
-        <property key="PG5" value="true"/>
-        <property key="PG6" value="true"/>
-        <property key="PG7" value="true"/>
-        <property key="PG8" value="true"/>
+        <property key="PG1" value="false"/>
+        <property key="PG2" value="false"/>
+        <property key="PG3" value="false"/>
+        <property key="PG4" value="false"/>
+        <property key="PG5" value="false"/>
+        <property key="PG6" value="false"/>
+        <property key="PG7" value="false"/>
+        <property key="PG8" value="false"/>
         <property key="PMP" value="true"/>
         <property key="PTGFRZ" value="true"/>
         <property key="QEI1" value="true"/>
@@ -831,14 +870,16 @@
         <targetDevice>dsPIC33CH512MP506</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>RealICEPlatformTool</platformTool>
+        <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.50</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="dsPIC33CH-MP_DFP" vendor="Microchip" version="1.2.112"/>
+        <pack name="dsPIC33CH-MP_DFP" vendor="Microchip" version="1.3.125"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
@@ -975,14 +1016,14 @@
         <property key="warn-section-align" value="false"/>
       </C30-LD>
       <C30Global>
-        <property key="common-include-directories" value=""/>
+        <property key="common-include-directories" value="sources;mcc_generated_files"/>
         <property key="dual-boot-partition" value="0"/>
         <property key="fast-math" value="false"/>
         <property key="generic-16-bit" value="false"/>
         <property key="legacy-libc" value="true"/>
         <property key="mpreserve-all" value="false"/>
         <property key="oXC16glb-macros"
-                  value="__MA330049_dsPIC33CH_DPPIM__;__P33SMPS_CH_MSTR__"/>
+                  value="__DM330029_R20__;__MA330049_dsPIC33CH_DPPIM__;__P33SMPS_CH_MSTR__"/>
         <property key="omit-pack-options" value="1"/>
         <property key="output-file-format" value="elf"/>
         <property key="preserve-all" value="false"/>
@@ -1012,10 +1053,10 @@
         <property key="MCCP/SCCP 6" value="true"/>
         <property key="MCCP/SCCP 7" value="true"/>
         <property key="MCCP/SCCP 8" value="true"/>
-        <property key="PG1" value="true"/>
-        <property key="PG2" value="true"/>
-        <property key="PG3" value="true"/>
-        <property key="PG4" value="true"/>
+        <property key="PG1" value="false"/>
+        <property key="PG2" value="false"/>
+        <property key="PG3" value="false"/>
+        <property key="PG4" value="false"/>
         <property key="PTGFRZ" value="true"/>
         <property key="QEI1" value="true"/>
         <property key="REFO" value="true"/>
@@ -1151,18 +1192,6 @@
         <property key="programoptions.programuserotp" value="false"/>
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
         <property key="programoptions.uselvpprogramming" value="false"/>
-        <property key="tracecontrol.collectioninterval" value="1"/>
-        <property key="tracecontrol.collectionunits" value="1"/>
-        <property key="tracecontrol.disablemacros" value="false"/>
-        <property key="tracecontrol.include.timestamp" value="summarydataenabled"/>
-        <property key="tracecontrol.medium" value="0"/>
-        <property key="tracecontrol.select" value="0"/>
-        <property key="tracecontrol.stallontracebufferfull" value="false"/>
-        <property key="tracecontrol.timerpriority" value="3"/>
-        <property key="tracecontrol.timerselect" value="0"/>
-        <property key="tracecontrol.tracebufmax" value="546000"/>
-        <property key="tracecontrol.tracefile" value="defmplabxtrace.log"/>
-        <property key="tracecontrol.tracefilemax" value="10000000"/>
         <property key="voltagevalue" value="3.25"/>
       </RealICEPlatformTool>
     </conf>
