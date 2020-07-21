@@ -621,6 +621,11 @@ volatile struct P33C_PWM_GENERATOR_s p33c_PwmGenerator_GetHandle(volatile uint16
     // Capture Handle: set pointer to memory address of desired PWM instance
     pg.pgHandle = (volatile struct P33C_PG_SFRSET_s*) 
             ((volatile uint8_t*)&PG1CONL + ((pg.Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
+    
+    
+    return (pg);
+}
+    
 /* @@p33c_PgInstance_GetHandle
  * ********************************************************************************
  * Summary:
