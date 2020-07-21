@@ -5,7 +5,7 @@
 # dsPIC33C High-Resolution PWM Configuration I
 **Complementary PWM Waveform Generation**
 
-<p><center><a href="https://www.microchip.com/MA330048" rel="nofollow">
+<p><center><a target="_blank" href="https://www.microchip.com/MA330048" rel="nofollow">
 <img src="images/ma330048.jpg" alt="dsPIC33CK Digital Power Plug-In Module" width="300"></a></center></p>
 
 - - -
@@ -19,6 +19,7 @@ Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration o
 ## Related Documentation
 - [dsPIC33CK256MP508 Family Data Sheet](https://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CK256MP508-Family-Data-Sheet-DS70005349G.pdf)
 - [dsPIC33CK256MP508 Family Silicon Errata and Data Sheet Clarification](https://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CK256MP508-Family-Silicon-Errata-and-Data-Sheet-Clarification-DS80000796G.pdf)
+Alternative Controller Plug-In Module:
 - [dsPIC33CH512MP508 Family Data Sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CH512MP508-Family-Data-Sheet-DS70005371D.pdf)
 - [dsPIC33CH512MP508 Family Silicon Errata and Data Sheet Clarification](http://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CH512MP508-Family-Silicon-Errata-and-Data-Sheet-Clarification-DS80000805F.pdf)
 
@@ -44,7 +45,7 @@ Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration o
 - - -
 
 ## Setup
-- Plug-In the dsPIC33CK or dsPIC33CH Digital Power Plug In Module into the Digital Power Development Board PIM socket J1
+- Plug-In the dsPIC33CK Digital Power Plug In Module into the Digital Power Development Board PIM socket J1
 - Open and compile the firmware and program the DSC
 
 <br><center><img src="images/dm330029.jpg" width="400"></center>
