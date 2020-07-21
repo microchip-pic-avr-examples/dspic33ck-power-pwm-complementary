@@ -647,16 +647,16 @@ volatile struct P33C_PWM_GENERATOR_s p33c_PwmGenerator_GetHandle(volatile uint16
  * 
  * ********************************************************************************/
 
-volatile struct P33C_PWM_GEN_INSTANCE_s* p33c_PgInstance_GetHandle(volatile uint16_t pgInstance)
+volatile struct P33C_PG_SFRSET_s* p33c_PgInstance_GetHandle(volatile uint16_t pgInstance)
 {
-    volatile struct P33C_PWM_GEN_INSTANCE_s* pg;
+    volatile struct P33C_PG_SFRSET_s* pg;
     
     // Detect if specified PWM generator is out of range
     if (pgInstance > P33C_PG_COUNT)
         return(NULL); // PWM generator index invalid 
 
     // Capture Handle: set pointer to memory address of desired PWM instance
-    pg = (volatile struct P33C_PWM_GEN_INSTANCE_s*) 
+    pg = (volatile struct P33C_PG_SFRSET_s*) 
             ((volatile uint8_t*)&PG1CONL + ((pgInstance - 1) * P33C_PWMGEN_SFR_OFFSET));
     
     return(pg);

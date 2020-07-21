@@ -303,7 +303,7 @@ extern "C" {
     typedef struct P33C_PWM_GENERATOR_s {
         volatile uint16_t Instance; // Index of the PWM generator (e.g. 1=PG1, 2=PG2, etc.)
         volatile uint16_t Group; // Index of the PWM generator group (e.g. 1=[PG1-PG4], 2=[PG5-PG8], etc.)
-        volatile struct P33C_PG_SFRSET_s *pgHandle; // Pointer to PWM generator Special Function Registers set
+        volatile struct P33C_PG_SFRSET_s* pgHandle; // Pointer to PWM generator Special Function Registers set
     } P33C_PWM_GENERATOR_t; // PWM GENERATOR INSTANCE CONFIGURATION
     
     // PWM generator instance Special Function Register set address offset
@@ -327,7 +327,7 @@ extern volatile struct P33C_PWM_MODULE_SFRSET_s p33c_PwmModule_ConfigRead(void);
 extern volatile uint16_t p33c_PwmModule_ConfigWrite(volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfig);
 
 extern volatile struct P33C_PWM_GENERATOR_s p33c_PwmGenerator_GetHandle(volatile uint16_t pgInstance);
-extern volatile struct P33C_PWM_GEN_INSTANCE_s* p33c_PgInstance_GetHandle(volatile uint16_t pgInstance);
+extern volatile struct P33C_PG_SFRSET_s* p33c_PgInstance_GetHandle(volatile uint16_t pgInstance);
 
 extern volatile uint16_t p33c_PwmGenerator_Initialize(volatile uint16_t pgInstance);
 extern volatile uint16_t p33c_PwmGenerator_Dispose(volatile uint16_t pgInstance);
