@@ -11,7 +11,8 @@
 - - -
 
 ## Summary
-Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration of the high-resolution PWM module and one PWM channel to generate a single, complementary PWM waveform
+Learning how to use the High Resolution PWM Module of dsPIC33C MP devices, Lab 1:
+Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration of the high-resolution PWM module using one PWM generator channel generating a single, complementary PWM waveform
 
 - - -
 
@@ -49,7 +50,7 @@ Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration o
 <br><center><img src="images/dm330029.jpg" width="400"></center>
 
 ## Operation
-After startup, PWM generator #3 is generating a 200 kHz complementary waveform at the PWM3H/PWM3L outputs. 
+After the device has been programmed and the MCU starts up, PWM generator #3 is generating a 200 kHz complementary waveform at the PWM3H/PWM3L outputs. 
 
 <br><center><img src="images/pwm200kHz.png" width="400"></center>
 *200 kHz Switching Frequency Output*
@@ -59,7 +60,7 @@ By pressing the on-board push button *USER* on the Digital Power Development Boa
 *1 MHz Switching Frequency Output*
 
 
-Please refer to section *FIRMWARE QUICK-START GUIDE* below for more information.
+Please refer to section *FIRMWARE QUICK-START GUIDE* below for more information on the initialization process and code structure.
 
 <br><center><img src="images/dm330029-pinmap.png" width="600"></center>
  
@@ -68,8 +69,8 @@ Please refer to section *FIRMWARE QUICK-START GUIDE* below for more information.
 ## FIRMWARE QUICK-START GUIDE
 
 This code example builds on previous code examples showing how to use Microchip Code Configurator (MCC) to set up device clock domains. 
-Although MCC also supports configuration tools for the High Resolution PWM module, all PWM configuration examples build on generic peripheral drivers to help users better understand the peripheral architecture and key aspects of specific configurations and operating modes. 
-In each PWM example code project the PWM configuration procedure is located in the user file pwm.c, where each register bit required to achieve/enable a certain function of mode is set and its function described with comments.
+Although MCC also supports configuration tools for the High Resolution PWM module, PWM configuration in this example builds on generic peripheral drivers to help users better understand the peripheral architecture and key aspects of specific configurations and operating modes. 
+In each PWM example code project the PWM configuration procedure is located in the user file pwm.c, where each register bit required to achieve/enable the specific function or mode of interest is set and its function described with comments.
 Once users are familiar with the architecture, features and capabilities, both configuration options (generic peripheral library or MCC) may be used.
 
 *a) Project Directory Structure*
@@ -91,6 +92,8 @@ To learn more about the generic PWM driver, its supported features and intended 
 
 *c) Executing the Code Example*
 This code has been written to automatically start up and perform the function of interest. Please read the demo instructions on top of file main.c to learn more about the code example, test points, expected signals and demo mode operation.
+
+
 
 - - - 
 
