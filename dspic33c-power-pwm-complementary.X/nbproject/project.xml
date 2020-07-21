@@ -20,10 +20,6 @@
                     <name>MA330048_dsPIC33CK_DPPIM</name>
                     <type>2</type>
                 </confElem>
-                <confElem>
-                    <name>MA330049_dsPIC33CH_DPPIM</name>
-                    <type>2</type>
-                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

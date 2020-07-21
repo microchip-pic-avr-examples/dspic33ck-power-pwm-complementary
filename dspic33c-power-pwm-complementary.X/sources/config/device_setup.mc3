@@ -13,12 +13,12 @@
          <string>class com.microchip.mcc.mcu16.systemManager.clk.Clock</string>
       </entry>
       <entry>
-         <string>WATCHDOG</string>
-         <string>class com.microchip.mcc.mcu16.systemManager.wdt.Wdt</string>
-      </entry>
-      <entry>
          <string>Pin Module</string>
          <string>class com.microchip.mcc.mcu16.pinManager.PinManager</string>
+      </entry>
+      <entry>
+         <string>WATCHDOG</string>
+         <string>class com.microchip.mcc.mcu16.systemManager.wdt.Wdt</string>
       </entry>
       <entry>
          <string>DMT</string>
@@ -13948,12 +13948,12 @@
    </tokenMap>
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
-         <file>mcc_generated_files\mcc.h</file>
-         <hash>5b60bfb0020381a0520bb74e1c8bb3bafa442aff3e71064d0123cd5a1a809cfa</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\interrupt_manager.h</file>
          <hash>d413dcac145cc053f9bd2613ef10cba8ac3f0c6daeed38e49cfcadb2170edf47</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\mcc.h</file>
+         <hash>da11287b3388692edf3d6f8bc0480caf872dee4057749d4c81df8faf03235ba1</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\reset.c</file>
@@ -13984,36 +13984,36 @@
          <hash>5a950eea332589ea6dc66ce9c8aaf27ccaaf2623159a9deaed042055e43c9477</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\system.h</file>
-         <hash>0060fe1fb7298b89c45e013f472a9f4b996184788e2fd4462bf321204ae5163c</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\pin_manager.c</file>
          <hash>7a64d50b1ff548dc0574f61ded05cb96c27256f7cee6a36fde3b11589b3d9b19</hash>
       </entry>
       <entry>
+         <file>mcc_generated_files\system.h</file>
+         <hash>0060fe1fb7298b89c45e013f472a9f4b996184788e2fd4462bf321204ae5163c</hash>
+      </entry>
+      <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>ef5203c301c2a0a97ff766ba43f3e0a4a3e3d57002109bb074c6f00a96fce82f</hash>
+         <hash>6786bb8f8ac98a175fa85d7b2389824ac0c37afac965497d53c174820cd29422</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\traps.c</file>
          <hash>cd1b39611258f57371c0aab4cafd68402ef27958b96556ed11638fddf5fc5823</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\clock.h</file>
-         <hash>67e0b39105fa38a93489aa8dbd59ed289b0d4de610d90d506816d4df1e40e1fa</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\traps.h</file>
          <hash>797d91b4866aede3314d66157389699c4119592fa1dc207ac146e0f1f59ba962</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\mcc.c</file>
-         <hash>23db5b8bbea73f565ab575b145ca07d44d368ec2d7396339bffa729199f90a5e</hash>
+         <file>mcc_generated_files\clock.h</file>
+         <hash>67e0b39105fa38a93489aa8dbd59ed289b0d4de610d90d506816d4df1e40e1fa</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.c</file>
          <hash>9d43d2327981dd19bf9561d87a9f483b1cc732eb18b85fa762853739c732fa24</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\mcc.c</file>
+         <hash>23db5b8bbea73f565ab575b145ca07d44d368ec2d7396339bffa729199f90a5e</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\reset.h</file>
