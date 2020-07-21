@@ -50,7 +50,7 @@
 #include "main.h"
 
 /* ********************************************************************* *
- * PWM Complementary Output PWM Configuraiton Example
+ * PWM Complementary Output PWM Configuration Example
  * 
  * Description:
  * 
