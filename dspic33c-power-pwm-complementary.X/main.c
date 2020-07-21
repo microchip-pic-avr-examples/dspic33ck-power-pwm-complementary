@@ -131,8 +131,8 @@
  * PWM2H      | TP42      | TP25      | PWM Generator #2 output HIGH
  * PWM2L      | TP40      | TP27  (2) | PWM Generator #2 output LOW
  *            |           |           | 
- * PWM3H      | TP37      | TP36      | PWM Generator #3 output HIGH
- * PWM3L      | TP41      | TP34      | PWM Generator #3 output LOW
+ * PWM3H      | TP37      | TP36      | PWM Generator #3 output HIGH (default)
+ * PWM3L      | TP41      | TP34      | PWM Generator #3 output LOW  (default)
  *            |           |           | 
  * PWM4H      | TP43      | TP46      | PWM Generator #4 output HIGH
  * PWM4L      | TP44      | TP48      | PWM Generator #4 output LOW
