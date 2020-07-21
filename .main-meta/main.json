@@ -3,7 +3,7 @@
   "category": "com.microchip.ide.project",
   "content": {
     "metaDataVersion": "1.0.0",
-    "name": "com.microchip.mplabx.project.dspic33c-power-pwm-complementary",
+    "name": "com.microchip.mplabx.project.dspic33ck-power-pwm-complementary",
     "version": "1.0.0",
     "displayName": "dsPIC33C PWM Configuration: Complementary PWM Output",
     "projectName": "dspic33c-power-pwm-complementary",
