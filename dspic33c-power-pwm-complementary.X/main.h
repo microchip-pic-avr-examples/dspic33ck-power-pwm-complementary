@@ -52,5 +52,5 @@ extern "C" {
 }
 #endif /* __cplusplus */
 
-#endif	/* XC_HEADER_TEMPLATE_H */
+#endif	/* MAIN_APPLICATION_HEADER_H */
 

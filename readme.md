@@ -7,10 +7,14 @@
 
 <p><center><a href="https://www.microchip.com/MA330048" rel="nofollow">
 <img src="images/ma330048.jpg" alt="dsPIC33CK Digital Power Plug-In Module" width="300"></a></center></p>
+
 - - -
+
 ## Summary
 Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration of the high-resolution PWM module and one PWM channel to generate a single, complementary PWM waveform
+
 - - -
+
 ## Related Documentation
 - [dsPIC33CK256MP508 Family Data Sheet](https://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CK256MP508-Family-Data-Sheet-DS70005349G.pdf)
 - [dsPIC33CK256MP508 Family Silicon Errata and Data Sheet Clarification](https://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CK256MP508-Family-Silicon-Errata-and-Data-Sheet-Clarification-DS80000796G.pdf)
@@ -89,4 +93,5 @@ To learn more about the generic PWM driver, its supported features and intended 
 This code has been written to automatically start up and perform the function of interest. Please read the demo instructions on top of file main.c to learn more about the code example, test points, expected signals and demo mode operation.
 
 - - - 
+
 © 2020, Microchip Technology Inc.
