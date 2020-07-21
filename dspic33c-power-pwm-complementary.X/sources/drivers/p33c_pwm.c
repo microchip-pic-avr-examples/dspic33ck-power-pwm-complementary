@@ -622,43 +622,6 @@ volatile struct P33C_PWM_GENERATOR_s p33c_PwmGenerator_GetHandle(volatile uint16
     pg.pgHandle = (volatile struct P33C_PG_SFRSET_s*) 
             ((volatile uint8_t*)&PG1CONL + ((pg.Instance - 1) * P33C_PWMGEN_SFR_OFFSET));
     
-    
-    return (pg);
-}
-    
-/* @@p33c_PgInstance_GetHandle
- * ********************************************************************************
- * Summary:
- *   Returns a pointer to a specific PWM generator instance defined by 'pgInstance'
- * 
- * Parameters:
- *   uint16_t pgInstance:   Index of the selected PWM generator (1=PG1, 2=PG2, etc.)
- * 
- * Returns:
- *   struct P33C_PG_INSTANCE_s*:
- *      PWM generator instance SRF set object of the specified PWM generator instance
- *  
- * Description:
- *      This function returns the pointer (handle) to the PWM generator Special 
- *      Function Register set specified by 'pgInstance' (1 = [PG1-PG4], 
- *      2 = [PG5-PG8]).
- *      the returned handle can be used to directly read from/write to PWM 
- *      registers of the selected PWM generator with zero API overhead.
- * 
- * ********************************************************************************/
-
-volatile struct P33C_PG_SFRSET_s* p33c_PgInstance_GetHandle(volatile uint16_t pgInstance)
-{
-    volatile struct P33C_PG_SFRSET_s* pg;
-    
-    // Detect if specified PWM generator is out of range
-    if (pgInstance > P33C_PG_COUNT)
-        return(NULL); // PWM generator index invalid 
-
-    // Capture Handle: set pointer to memory address of desired PWM instance
-    pg = (volatile struct P33C_PG_SFRSET_s*) 
-            ((volatile uint8_t*)&PG1CONL + ((pgInstance - 1) * P33C_PWMGEN_SFR_OFFSET));
-    
     return(pg);
 }
 
