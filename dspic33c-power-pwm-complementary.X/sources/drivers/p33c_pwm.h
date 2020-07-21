@@ -326,6 +326,8 @@ extern volatile uint16_t p33c_PwmModule_Dispose(void);
 extern volatile struct P33C_PWM_MODULE_SFRSET_s p33c_PwmModule_ConfigRead(void);
 extern volatile uint16_t p33c_PwmModule_ConfigWrite(volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfig);
 
+extern volatile struct P33C_PWM_GENERATOR_s p33c_PwmGenerator_GetHandle(volatile uint16_t pgInstance);
+extern volatile struct P33C_PWM_GEN_INSTANCE_s* p33c_PgInstance_GetHandle(volatile uint16_t pgInstance);
 
 extern volatile uint16_t p33c_PwmGenerator_Initialize(volatile uint16_t pgInstance);
 extern volatile uint16_t p33c_PwmGenerator_Dispose(volatile uint16_t pgInstance);
