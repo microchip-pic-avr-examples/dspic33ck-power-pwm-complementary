@@ -1,4 +1,4 @@
-# dspic33c-power-pwm-complementary, release v1.0.0
+# dspic33ck-power-pwm-complementary, release v1.0.0
 
 ### Release Highlights
 This is the initial release demonstrating the basic configuration of a high-resolution PWM generator of the dsPIC33C family of devices.
