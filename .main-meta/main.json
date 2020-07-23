@@ -6,7 +6,7 @@
     "name": "com.microchip.mplabx.project.dspic33ck-power-pwm-complementary",
     "version": "1.0.0",
     "displayName": "dsPIC33C PWM Configuration: Complementary PWM Output",
-    "projectName": "dspic33c-power-pwm-complementary",
+    "projectName": "dspic33ck-power-pwm-complementary",
     "shortDescription": "Complementary PWM Output Configuraiton Example for dsPIC33C devices",
 	"ide": {
 		"name": "MPLABX",
