@@ -11,14 +11,17 @@
 - - -
 
 ## Summary
-Learning how to use the High Resolution PWM Module of dsPIC33C MP devices, Lab 1:
-Code example for dsPIC33CK and dsPIC33CH devices showing a basic configuration of the high-resolution PWM module using one PWM generator channel generating a single, complementary PWM waveform
+Learning how to use the High Resolution PWM Module of dsPIC33C MP devices 
+
+Lab 1: Complementary Waveform Generation
+Code example for dsPIC33CK and dsPIC33CH devices introducing the basic configuration of the high-resolution PWM module using one PWM generator channel generating a single, complementary PWM waveform
 
 - - -
 
 ## Related Documentation
 - [dsPIC33CK256MP508 Family Data Sheet](https://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CK256MP508-Family-Data-Sheet-DS70005349G.pdf)
 - [dsPIC33CK256MP508 Family Silicon Errata and Data Sheet Clarification](https://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CK256MP508-Family-Silicon-Errata-and-Data-Sheet-Clarification-DS80000796G.pdf)
+
 Alternative Controller Plug-In Module:
 - [dsPIC33CH512MP508 Family Data Sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CH512MP508-Family-Data-Sheet-DS70005371D.pdf)
 - [dsPIC33CH512MP508 Family Silicon Errata and Data Sheet Clarification](http://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CH512MP508-Family-Silicon-Errata-and-Data-Sheet-Clarification-DS80000805F.pdf)
@@ -53,17 +56,17 @@ Alternative Controller Plug-In Module:
 ## Operation
 After the device has been programmed and the MCU starts up, PWM generator #3 is generating a 200 kHz complementary waveform at the PWM3H/PWM3L outputs. 
 
-<br><center><img src="images/pwm200kHz.png" width="400"></center>
+<br><center><img src="images/pwm200kHz.png" width="400"></center><br>
 *200 kHz Switching Frequency Output*
 
 By pressing the on-board push button *USER* on the Digital Power Development Board, the switching frequency is toggled between the initial 200 kHz and 1 MHz.
-<br><center><img src="images/pwm1MHz.png" width="400"></center>
+<br><center><img src="images/pwm1MHz.png" width="400"></center><br>
 *1 MHz Switching Frequency Output*
 
 
 Please refer to section *FIRMWARE QUICK-START GUIDE* below for more information on the initialization process and code structure.
 
-<br><center><img src="images/dm330029-pinmap.png" width="600"></center>
+<br><center><img src="images/dm330029-pinmap.png" width="800"></center><br>
  
 - - -
 
