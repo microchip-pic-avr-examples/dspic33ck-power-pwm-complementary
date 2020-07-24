@@ -10,20 +10,19 @@ pipeline {
 
 	environment {
 	    NOTIFICATION_EMAIL = '1f1319de.microchip.com@amer.teams.ms'	
-		//Branch to be deployed, if multiple branches use comma separated string
-		DEPLOY_BRANCH = "${env.BRANCH_NAME}"
-		//This is the BitBucket repo URL which we want to deploy
-		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/dspic33c-power-pwm-complementary.git'
+		//This is the BitBucket source repo URL to be deployed
+		BITBUCKET_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/dspic33ck-power-pwm-complementary.git'
 		BITBUCKET_CREDENTIAL_ID = 'BITBUCKET_MCU16CE_TOKEN'
-        //URL of actual production deployment		
 		GITHUB_PRODUCTION_DEPLOY_URL ='https://github.com/microchip-pic-avr-examples'
-		//URL for test deployment
 		GITHUB_TEST_DEPLOY_URL ='https://github.com/mchpTestArea'
+		//Selects the deployment URL(production or test) based on the merge target branch, selects "microchip-pic-avr-examples" if target branch is "master" else selects "mchpTestArea"
 		GITHUB_URL = "${env.BRANCH_NAME == 'master' ? env.GITHUB_PRODUCTION_DEPLOY_URL : env.GITHUB_TEST_DEPLOY_URL}"
 		GITHUB_CREDENTIAL_ID = 'GITHUB_PIC_AVR_TEST_TOKEN'
-		//Files or folders to be excluded from deployment
-		DEPLOY_EXCLUDE_FOLDER = 'mchp_private'
-		CHANGE_LOG_PATH = 'deploy_sandbox/changelog.md'
+		//Files or folders to be excluded from deployment, if multiple files or folders use comma separator
+		DEPLOY_EXCLUDE_FOLDER_FILE_LIST = 'mchp_private'
+		//Branch(s) to be deployed, if multiple branches use comma separator. ${env.BRANCH_NAME} is the target branch of the PR.
+		DEPLOY_BRANCH_LIST = "${env.BRANCH_NAME}"
+		CHANGE_LOG_PATH = 'changelog.md'
 		SOURCE_PROJECT_META_DATA = '.main-meta/main.json'
 		DEPLOY_TOOL_URL = 'https://bitbucket.microchip.com/scm/citd/tool-github-deploy.git'
 	}
@@ -136,7 +135,7 @@ pipeline {
                     gitHubUrl = gitHubUrl.replace(" ", "").replace("\n", "")
                     
                     withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
-                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -deploy=true -gpat=$PASS -dgid=$USER_NAME -dburl=${env.BITBUCKET_URL} -dgurl=${gitHubUrl}  -dbranch=${env.DEPLOY_BRANCH} -def=${env.DEPLOY_EXCLUDE_FOLDER}")
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -deploy=true -gpat=$PASS -dgid=$USER_NAME -dburl=${env.BITBUCKET_URL} -dgurl=${gitHubUrl}  -dbranch=${env.DEPLOY_BRANCH_LIST} -def=${env.DEPLOY_EXCLUDE_FOLDER_FILE_LIST}")
                     }
                 }
             }
@@ -169,12 +168,12 @@ pipeline {
         success{
             script {
                 if (!"${env.CHANGE_AUTHOR_EMAIL}".equalsIgnoreCase("null")) {
-				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
                     mail to: "${env.CHANGE_AUTHOR_EMAIL}, ${env.NOTIFICATION_EMAIL}",
                     subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Something is right with ${env.BUILD_URL}"
                 } else {
-				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
                     mail to: "${env.NOTIFICATION_EMAIL}",
                     subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Something is right with ${env.BUILD_URL}"
@@ -184,12 +183,12 @@ pipeline {
         failure {
             script {
                 if (!"${env.CHANGE_AUTHOR_EMAIL}".equalsIgnoreCase("null")) {
-				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
                     mail to: "${env.CHANGE_AUTHOR_EMAIL}, ${env.NOTIFICATION_EMAIL}",
                     subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Pipeline failure. ${env.BUILD_URL}"
                 } else {
-				    //archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
+				    archiveArtifacts artifacts: "tool-mplabx-c-build/output/**", fingerprint: true
                     mail to: "${env.NOTIFICATION_EMAIL}",
                     subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Pipeline failure. ${env.BUILD_URL}"
