@@ -19,10 +19,8 @@ pipeline {
 		GITHUB_URL = getGitHubUrl("${GITHUB_PRODUCTION_DEPLOY_URL}","${GITHUB_TEST_DEPLOY_URL}")
 		GITHUB_PRODUCTION_DEPLOY_CREDENTIAL_ID ='GITHUB_MICROCHIP_PIC_AVR_EXAMPLES_TOKEN'
 		GITHUB_TEST_DEPLOY_CREDENTIAL_ID ='GITHUB_PIC_AVR_TEST_TOKEN'
-		PRODUCTION_DEPLOY_ORG = 'microchip-pic-avr-examples'
-		TEST_DEPLOY_ORG = 'mchpTestArea'
 		//Gets the Github credential id based on the deployment organization
-	    GITHUB_CREDENTIAL_ID = getGitHubCredentialId("${GITHUB_URL}","${PRODUCTION_DEPLOY_ORG}","${TEST_DEPLOY_ORG}","${GITHUB_PRODUCTION_DEPLOY_CREDENTIAL_ID}","${GITHUB_TEST_DEPLOY_CREDENTIAL_ID}")
+	    GITHUB_CREDENTIAL_ID = getGitHubCredentialId("${GITHUB_URL}","${GITHUB_PRODUCTION_DEPLOY_URL}","${GITHUB_TEST_DEPLOY_URL}","${GITHUB_PRODUCTION_DEPLOY_CREDENTIAL_ID}","${GITHUB_TEST_DEPLOY_CREDENTIAL_ID}")
 		//Files or folders to be excluded from deployment, if multiple files or folders use comma separator
 		DEPLOY_EXCLUDE_FOLDER_FILE_LIST = 'mchp_private'
 		//Branch(s) to be deployed, if multiple branches use comma separator. ${env.BRANCH_NAME} is the target branch of the PR.
@@ -111,7 +109,7 @@ pipeline {
                     def asString = topics.join(", ")
                     asString = asString.replace("\n", "").replace(" ", "").replace("\t", "").replace("\r", "")
 					Boolean visibility =  true
-					if(env.GITHUB_URL.contains(env.PRODUCTION_DEPLOY_ORG))
+					if(env.GITHUB_URL == env.GITHUB_PRODUCTION_DEPLOY_URL)
 					{
 					   visibility = false
 					}
@@ -255,10 +253,10 @@ def getGitHubUrl(String productionUrl, String testDeployUrl) {
     }
 }
 
-def getGitHubCredentialId(String deployUrl, String productionDeployOrg, String testDeployOrg, String githubProductionDeployCredential, String githubTestDeployCredential) {    
-    if(deployUrl.contains(productionDeployOrg)) {
+def getGitHubCredentialId(String deployUrl, String productionDeployUrl, String testDeployUrl, String githubProductionDeployCredential, String githubTestDeployCredential) {    
+    if(deployUrl == productionDeployUrl) {
         return githubProductionDeployCredential;
-    } else if(deployUrl.contains(testDeployOrg)) {
+    } else if(deployUrl == testDeployUrl) {
         return githubTestDeployCredential;
     } else {
         return null
