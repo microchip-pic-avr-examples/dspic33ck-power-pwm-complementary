@@ -85,7 +85,7 @@ pipeline {
                     def jsonObj = readJsonObject();
                     
                     withCredentials([usernamePassword(credentialsId: "${env.BITBUCKET_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
-                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -bto=true -rpn=\"${jsonObj.content.projectName}\" -bid=$USER_NAME -bpat=$PASS -bpn=MCU16CE -btv=\"${jsonObj.content.version}\" -bch=${env.GIT_COMMIT} -btd=\"v${jsonObj.content.version}\"")
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -bto=true -rpn=\"${jsonObj.content.projectName}\" -bid=$USER_NAME -bpat=$PASS -bpn=MCU16CE -btv=\"${jsonObj.content.version}\" -bch=${env.GIT_COMMIT} -btd=\"${jsonObj.content.version}\"")
                     }
                 }
             }
@@ -159,7 +159,7 @@ pipeline {
                     def jsonObj = readJsonObject();
                     
                     withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
-                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rlo=true -gpat=$PASS -rpn=\"${jsonObj.content.projectName}\" -rltv=\"v${jsonObj.content.version}\" -rltt=\"${jsonObj.content.version}\" -rlnp=${env.CHANGE_LOG_PATH}")
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rlo=true -gpat=$PASS -rpn=\"${jsonObj.content.projectName}\" -rltv=\"${jsonObj.content.version}\" -rltt=\"${jsonObj.content.version}\" -rlnp=${env.CHANGE_LOG_PATH}")
                     }
                 }
             }
