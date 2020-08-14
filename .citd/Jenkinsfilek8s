@@ -159,7 +159,7 @@ pipeline {
                     def jsonObj = readJsonObject();
                     
                     withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
-                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rlo=true -gpat=$PASS -rpn=\"${jsonObj.content.projectName}\" -rltv=\"${jsonObj.content.version}\" -rltt=\"${jsonObj.content.version}\" -rlnp=${env.CHANGE_LOG_PATH}")
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rlo=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=\"${jsonObj.content.projectName}\" -rltv=\"${jsonObj.content.version}\" -rltt=\"${jsonObj.content.version}\" -rlnp=${env.CHANGE_LOG_PATH}")
                     }
                 }
             }
