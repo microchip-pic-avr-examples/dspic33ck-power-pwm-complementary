@@ -30,15 +30,6 @@
 			"versionRange": "*"
 		}
 	},
-	"subcategories":[
-		"SMPS",
-		[
-			"Peripherals",
-			"GPIO",
-			"PWM", 
-			"Timer"
-		]
-	],
 	"peripherals": [
 		"GPIO",
 		"PWM",
