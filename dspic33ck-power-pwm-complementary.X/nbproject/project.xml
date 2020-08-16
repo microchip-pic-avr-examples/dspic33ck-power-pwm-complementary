@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>dspic33c-power-pwm-complementary</name>
+            <name>dspic33ck-power-pwm-complementary</name>
             <creation-uuid>f2603f12-90f2-4104-afdb-37474f38a3d6</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
