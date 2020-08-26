@@ -617,17 +617,31 @@ volatile struct P33C_PWM_GENERATOR_s* p33c_PwmGenerator_GetHandle(volatile uint1
 volatile uint16_t p33c_PwmGenerator_GetInstance(volatile struct P33C_PWM_GENERATOR_s* pg)
 {
     volatile uint16_t retval=1;
-
     // ToDo: Add Code for GetInstance of PWM generator
+    // Capture Instance: set pointer to memory address of desired PWM instance
     
+    retval = (volatile struct P33C_PWM_GENERATOR_s*)(((volatile uint16_t)&pg->PGxCONL - (volatile uint16_t)&PG1CONL) / P33C_PWMGEN_SFR_OFFSET + 1);
+            
+    if (retval > P33C_PG_COUNT)
+    return(pg); // PWM generator not member of a valid group 
+
     return(retval);
 }
 
 volatile uint16_t p33c_PwmGenerator_GetGroup(volatile struct P33C_PWM_GENERATOR_s* pg)
 {
     volatile uint16_t retval=1;
+    volatile uint16_t pgInstance;
 
     // ToDo: Add Code for GetGroup of PWM generator
+    pgInstance = (volatile struct P33C_PWM_GENERATOR_s*)(((volatile uint16_t)&pg->PGxCONL - (volatile uint16_t)&PG1CONL) / P33C_PWMGEN_SFR_OFFSET + 1);
+    // Detect PWM generator groups
+    if (pgInstance > P33C_PG_COUNT)
+        return(pg); // PWM generator not member of a valid group 
+    else if (pgInstance > 4)
+        retval = 2; // PWM generator is member of group #2 [PG5-PG8]
+    else
+        retval = 1; // PWM generator is member of group #1 [PG1-PG4]
 
     return(retval);
 }
@@ -683,8 +697,9 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
     )
 {
     volatile uint16_t retval=1;
-    volatile uint16_t pgMotherInstance=0, pgChildInstance;
+    volatile uint16_t pgMotherInstance=0, pgChildInstance=0;
     volatile uint16_t pgMotherGroup=0, pgChildGroup=0;
+    volatile uint16_t pgInstance;
     
     // ToDo: Add Code using new xxx_GetInstance and xxx_GetGroup functions
     pgMotherInstance = p33c_PwmGenerator_GetInstance(pgHandleMother);
