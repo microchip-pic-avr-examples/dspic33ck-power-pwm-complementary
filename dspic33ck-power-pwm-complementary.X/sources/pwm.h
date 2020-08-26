@@ -49,7 +49,7 @@ extern "C" {
 #define MY_PWM_GENERATOR    3           // Specify index of PWM generator instance (1=PG1, 3=PG2, etc)
     
 /* Declare global, user-defined PWM generator object */    
-extern volatile P33C_PWM_GENERATOR_t my_pg;    // user-defined PWM generator object 
+extern volatile struct P33C_PWM_GENERATOR_s* my_pg;    // user-defined PWM generator object 
 
 
 // Pre-compiler plausibility check if declared PWM generator index 
