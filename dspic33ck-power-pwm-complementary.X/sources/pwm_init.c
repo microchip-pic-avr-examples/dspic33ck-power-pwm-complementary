@@ -27,7 +27,7 @@ volatile uint16_t PWM_Initialize(void) {
 
     // Reset PGx SFRs to RESET conditions
     pgInstance = p33c_PwmGenerator_GetInstance(my_pg);
-    p33c_PwmGenerator_ConfigWrite(pgInstance, pgConfigDispose);
+    p33c_PwmGenerator_ConfigWrite(pgInstance, pgConfigClear);
 
     // Set individual PWM generator configuration
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
