@@ -7,8 +7,7 @@
 
 
 #include <xc.h>
-
-#include "pwm.h"
+#include "pwm_init.h"
 
 /* Declare global, user-defined PWM generator object */
 volatile struct P33C_PWM_GENERATOR_s* my_pg;    // user-defined PWM generator object 
