@@ -617,7 +617,11 @@ volatile struct P33C_PWM_GENERATOR_s* p33c_PwmGenerator_GetHandle(volatile uint1
 volatile uint16_t p33c_PwmGenerator_GetInstance(volatile struct P33C_PWM_GENERATOR_s* pg)
 {
     volatile uint16_t retval=1;
-    // ToDo: Add Code for GetInstance of PWM generator
+
+    // Null-pointer protection
+    if (pg == NULL)
+        return(0);
+
     // Capture Instance: set pointer to memory address of desired PWM instance
     retval = (volatile uint16_t)
         (((volatile uint16_t)&pg->PGxCONL - (volatile uint16_t)&PG1CONL) / P33C_PWMGEN_SFR_OFFSET) + 1;
@@ -632,6 +636,10 @@ volatile uint16_t p33c_PwmGenerator_GetGroup(volatile struct P33C_PWM_GENERATOR_
 {
     volatile uint16_t retval=1;
     volatile uint16_t pgInstance;
+
+    // Null-pointer protection
+    if (pg == NULL)
+        return(0);
 
     // ToDo: Add Code for GetGroup of PWM generator
     pgInstance = (volatile uint16_t)
