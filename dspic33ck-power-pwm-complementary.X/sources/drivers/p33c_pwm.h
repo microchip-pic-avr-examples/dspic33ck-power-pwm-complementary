@@ -315,22 +315,40 @@ extern "C" {
 /* ********************************************************************************************* * 
  * API FUNCTION PROTOTYPES
  * ********************************************************************************************* */
-extern volatile uint16_t p33c_PwmModule_Initialize(void); 
-extern volatile uint16_t p33c_PwmModule_Dispose(void);
+
+/* ***********
+ * PWM Module essential functions
+ * **********/
+
 extern volatile struct P33C_PWM_MODULE_SFRSET_s p33c_PwmModule_ConfigRead(void);
 extern volatile uint16_t p33c_PwmModule_ConfigWrite(volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfig);
 
+/* ***********
+ * PWM Module higher functions
+ * **********/
 
-extern volatile uint16_t p33c_PwmGenerator_Initialize(volatile uint16_t pgInstance);
-extern volatile uint16_t p33c_PwmGenerator_Dispose(volatile uint16_t pgInstance);
+extern volatile uint16_t p33c_PwmModule_Initialize(void); 
+extern volatile uint16_t p33c_PwmModule_Dispose(void);
+
+/* ***********
+ * PWM Generator essential functions
+ * **********/
+
 extern volatile struct P33C_PWM_GENERATOR_s p33c_PwmGenerator_ConfigRead(volatile uint16_t pgInstance);
 extern volatile uint16_t p33c_PwmGenerator_ConfigWrite(volatile uint16_t pgInstance, 
                             volatile struct P33C_PWM_GENERATOR_s pgConfig);
 
-
 extern volatile struct P33C_PWM_GENERATOR_s* p33c_PwmGenerator_GetHandle(volatile uint16_t pgInstance);
 extern volatile uint16_t p33c_PwmGenerator_GetInstance(volatile struct P33C_PWM_GENERATOR_s* pg);
 extern volatile uint16_t p33c_PwmGenerator_GetGroup(volatile struct P33C_PWM_GENERATOR_s* pg);
+
+
+/* ***********
+ * PWM Generator higher functions
+ * **********/
+
+extern volatile uint16_t p33c_PwmGenerator_Initialize(volatile uint16_t pgInstance);
+extern volatile uint16_t p33c_PwmGenerator_Dispose(volatile uint16_t pgInstance);
 
 extern volatile uint16_t p33c_PwmGenerator_Enable(volatile struct P33C_PWM_GENERATOR_s* pg);
 extern volatile uint16_t p33c_PwmGenerator_Disable(volatile struct P33C_PWM_GENERATOR_s* pg);
