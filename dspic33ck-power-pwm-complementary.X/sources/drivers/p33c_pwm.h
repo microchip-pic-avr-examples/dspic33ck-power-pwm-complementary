@@ -22,8 +22,8 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef XC_PWM_MODULE_HEADER_H
-#define	XC_PWM_MODULE_HEADER_H
+#ifndef P33C_PWM_MODULE_HEADER_H
+#define	P33C_PWM_MODULE_HEADER_H
 
 // Include standard header files
 #include <xc.h> // include processor files - each processor file is guarded.  
@@ -369,4 +369,4 @@ extern volatile struct P33C_PWM_GENERATOR_s pgConfigClear;
 }
 #endif /* __cplusplus */
 
-#endif	/* XC_PWM_MODULE_HEADER_H */
+#endif	/* P33C_PWM_MODULE_HEADER_H */
