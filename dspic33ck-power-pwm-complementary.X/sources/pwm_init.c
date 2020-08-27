@@ -31,6 +31,10 @@ volatile uint16_t PWM_Initialize(void) {
 
     // Set individual PWM generator configuration
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    // PGxIOCONH: PWM GENERATOR x I/O CONTROL REGISTER HIGH
+    my_pg->PGxIOCONH.bits.PMOD = 0b00; // PWM Generator outputs operate in Complementary mode
+    
     
     // PGxCONL: PWM GENERATOR x CONTROL REGISTER LOW
     my_pg->PGxCONL.bits.CLKSEL = 0b01; // PWM Generator uses Master clock selected by the MCLKSEL[1:0] (PCLKCON[1:0]) control bits
@@ -49,9 +53,6 @@ volatile uint16_t PWM_Initialize(void) {
     my_pg->PGxIOCONL.bits.OVRENL = 1; // OVRDAT0 provides data for output on the PWMxL pin
     my_pg->PGxIOCONL.bits.OVRENH = 1; // OVRDAT1 provides data for output on the PWMxH pin
         
-    // PGxIOCONH: PWM GENERATOR x I/O CONTROL REGISTER HIGH
-    my_pg->PGxIOCONH.bits.PMOD = 0b00; // PWM Generator outputs operate in Complementary mode
-    
     // Set PWM signal generation timing of this generator 
     
     my_pg->PGxPER.value = 20000;   // Set Period (n = 20000 => 1 / (n * 250 ps) = 200 kHz )
