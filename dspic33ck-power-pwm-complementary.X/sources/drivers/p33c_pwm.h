@@ -356,13 +356,13 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
 /* ********************************************************************************************* * 
  * PWM GENERATOR CONFIGURATION TEMPLATES
  * ********************************************************************************************* */
-extern volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigDispose;
+extern volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigClear;
 extern volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigDefault;
 
 /* ********************************************************************************************* * 
  * PWM GENERATOR CONFIGURATION TEMPLATES
  * ********************************************************************************************* */
-extern volatile struct P33C_PWM_GENERATOR_s pgConfigDispose;
+extern volatile struct P33C_PWM_GENERATOR_s pgConfigClear;
 
 
 #ifdef	__cplusplus

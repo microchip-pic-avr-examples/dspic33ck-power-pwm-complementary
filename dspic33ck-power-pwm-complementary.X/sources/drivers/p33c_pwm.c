@@ -91,7 +91,7 @@ volatile uint16_t p33c_PwmModule_Dispose(void)
 {
     volatile uint16_t retval=1;
     
-    retval = p33c_PwmModule_ConfigWrite(pwmConfigDispose);
+    retval = p33c_PwmModule_ConfigWrite(pwmConfigClear);
     
     return(retval);
 }
@@ -271,7 +271,7 @@ volatile uint16_t p33c_PwmGenerator_Initialize(volatile uint16_t pgInstance)
     retval &= p33c_PwmGenerator_Disable(pg);
 
     // Reset all SFRs to default
-    p33c_PwmGenerator_ConfigWrite(pgInstance, pgConfigDispose);
+    p33c_PwmGenerator_ConfigWrite(pgInstance, pgConfigClear);
     
     /* PWM GENERATOR CONTROL REGISTER LOW */
     pg->PGxCONL.bits.ON = 0;         // Disable PWM generator
@@ -308,7 +308,7 @@ volatile uint16_t p33c_PwmGenerator_Dispose(volatile uint16_t pgInstance)
     volatile uint16_t retval=1;
     
     // Clear all registers of pgInstance
-    p33c_PwmGenerator_ConfigWrite(pgInstance, pgConfigDispose);
+    p33c_PwmGenerator_ConfigWrite(pgInstance, pgConfigClear);
     
     return(retval);
 }
@@ -773,7 +773,7 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
  * PWM MODULE BASE CONFIGURATION TEMPLATES
  * ********************************************************************************************* */
 
-/* @@pwmConfigDispose
+/* @@pwmConfigClear
  * ********************************************************************************
  * Summary:
  *   Default RESET configuration of the PWM module SFRs
@@ -791,7 +791,7 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
  * 
  * *******************************************************************************/
 
-volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigDispose = { 
+volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigClear = { 
     
         .vPCLKCON.value = 0x0000, // HRRDY=0, HRERR=0, LOCK=0, DIVSEL=0b00, MCLKSEL=0b00
         .vFSCL.value = 0x0000, // FSCL=0
@@ -816,7 +816,7 @@ volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigDispose = {
         .PWMEVT_F.value = 0x0000  // EVTFOEN=0, EVTFPOL=0, EVTFSTRD=0, EVTFSYNC=0, EVTFSEL=0b000, EVTFPGS=0b000
    };
 
-/* @@pwmConfigDispose
+/* @@pwmConfigDefault
  * ********************************************************************************
  * Summary:
  *   Default initialization configuration of the PWM module SFRs
@@ -864,8 +864,7 @@ volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigDefault = {
  * PWM GENERATOR CONFIGURATION TEMPLATES
  * ********************************************************************************************* */
 
-
-/* @@pwmConfigDispose
+/* @@pwmConfigClear
  * ********************************************************************************
  * Summary:
  *   Default RESET configuration of one PWM generator channel SFRs
@@ -883,7 +882,7 @@ volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfigDefault = {
  * 
  * *******************************************************************************/
 
-volatile struct P33C_PWM_GENERATOR_s pgConfigDispose = {
+volatile struct P33C_PWM_GENERATOR_s pgConfigClear = {
     
         .PGxCONL.value = 0x0000, // ON=0, TRGCNT=0b000, HREN=0, CLKSEL=b00, MODSEL=0b000
         .PGxCONH.value = 0x0000, // MDCSEL=0, MPERSEL=0, MPHSEL=0, MSTEN=0, UPDMOD=0b000, TRGMOD=0, SOCS=0b0000
