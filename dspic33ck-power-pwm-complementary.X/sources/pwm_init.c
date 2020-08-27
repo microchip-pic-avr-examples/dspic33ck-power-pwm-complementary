@@ -19,6 +19,7 @@ volatile uint16_t PWM_Initialize(void) {
     volatile uint16_t retval=1;
     volatile uint16_t pgInstance=0;
     
+    
     // Default PWM Initialization for 500 MHz input clock from AUX PLL
     p33c_PwmModule_Initialize();
 
@@ -48,7 +49,7 @@ volatile uint16_t PWM_Initialize(void) {
     
     // PGxIOCONL: PWM GENERATOR x I/O CONTROL REGISTER LOW
     my_pg->PGxIOCONL.bits.OSYNC = 0b00; // User output overrides via the OVRENH/L and OVRDAT[1:0] 
-                                                 // bits are synchronized to the local PWM time base (next Start-of-Cycle)
+                                        // bits are synchronized to the local PWM time base (next Start-of-Cycle)
     my_pg->PGxIOCONL.bits.OVRDAT = 0b00; // Both PWM outputs are LOW in override mode
     my_pg->PGxIOCONL.bits.OVRENL = 1; // OVRDAT0 provides data for output on the PWMxL pin
     my_pg->PGxIOCONL.bits.OVRENH = 1; // OVRDAT1 provides data for output on the PWMxH pin
@@ -65,7 +66,6 @@ volatile uint16_t PWM_Initialize(void) {
     
     Nop(); // Place breakpoint to review PWM configuration
     Nop(); // using the Watch Window
-    Nop();
     
     // Enable PWM generator outputs (starts signal generation at next period transition)
     p33c_PwmGenerator_Resume(my_pg);
