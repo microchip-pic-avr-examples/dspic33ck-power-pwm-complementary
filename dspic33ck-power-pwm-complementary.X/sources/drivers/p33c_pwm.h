@@ -31,7 +31,9 @@
 #include <stdbool.h> // include standard boolean data types
 #include <stddef.h> // include standard definition data types
 
-#ifdef __dsPIC33C__
+#ifndef __dsPIC33C__
+   #error "peripherl driver p33c_pwm.h does not support the selected device"
+#endif
 
 #ifdef	__cplusplus
 extern "C" {
@@ -318,24 +320,25 @@ extern "C" {
  * API FUNCTION PROTOTYPES
  * ********************************************************************************************* */
 
-/* ***********
- * PWM Module essential functions
- * **********/
+/* ********************************************************************************************* * 
+ * Basic PWM Module Configuration Function Call Prototypes
+ * ********************************************************************************************* */
+    
+// PWM Module essential functions
+extern volatile struct P33C_PWM_MODULE_SFRSET_s* p33c_PwmModule_GetHandle(void);
 
 extern volatile struct P33C_PWM_MODULE_SFRSET_s p33c_PwmModule_ConfigRead(void);
 extern volatile uint16_t p33c_PwmModule_ConfigWrite(volatile struct P33C_PWM_MODULE_SFRSET_s pwmConfig);
 
-/* ***********
- * PWM Module higher functions
- * **********/
-
+// PWM Module higher functions
 extern volatile uint16_t p33c_PwmModule_Initialize(void); 
 extern volatile uint16_t p33c_PwmModule_Dispose(void);
 
-/* ***********
- * PWM Generator essential functions
- * **********/
+/* ********************************************************************************************* * 
+ * Individual PWM Generator Configuration Function Call Prototypes
+ * ********************************************************************************************* */
 
+// PWM Generator essential functions
 extern volatile struct P33C_PWM_GENERATOR_s p33c_PwmGenerator_ConfigRead(volatile uint16_t pgInstance);
 extern volatile uint16_t p33c_PwmGenerator_ConfigWrite(volatile uint16_t pgInstance, 
                             volatile struct P33C_PWM_GENERATOR_s pgConfig);
@@ -345,10 +348,7 @@ extern volatile uint16_t p33c_PwmGenerator_GetInstance(volatile struct P33C_PWM_
 extern volatile uint16_t p33c_PwmGenerator_GetGroup(volatile struct P33C_PWM_GENERATOR_s* pg);
 
 
-/* ***********
- * PWM Generator higher functions
- * **********/
-
+// PWM Generator higher functions
 extern volatile uint16_t p33c_PwmGenerator_Initialize(volatile uint16_t pgInstance);
 extern volatile uint16_t p33c_PwmGenerator_Dispose(volatile uint16_t pgInstance);
 
@@ -372,7 +372,6 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
         volatile bool ChildImmediateUpdate
     );
 
-
 /* ********************************************************************************************* * 
  * PWM GENERATOR CONFIGURATION TEMPLATES
  * ********************************************************************************************* */
@@ -389,5 +388,4 @@ extern volatile struct P33C_PWM_GENERATOR_s pgConfigClear;
 }
 #endif /* __cplusplus */
 
-#endif
 #endif	/* P33C_PWM_MODULE_HEADER_H */

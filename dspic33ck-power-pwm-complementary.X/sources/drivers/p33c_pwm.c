@@ -25,7 +25,7 @@
 #include <stdbool.h> // include standard boolean data types
 #include <stddef.h> // include standard definition data types
 
-#include "drivers/p33c_pwm.h"
+#include "p33c_pwm.h"
 
 
 /* @@p33c_PwmModule_Initialize
@@ -60,6 +60,37 @@ volatile uint16_t p33c_PwmModule_Initialize(void)
     retval = p33c_PwmModule_ConfigWrite(pwmConfigDefault);
     
     return(retval);
+}
+
+/* @@p33c_PwmModule__GetHandle
+ * ********************************************************************************
+ * Summary:
+ *   Gets pointer to PWM module SFR set
+ * 
+ * Parameters:
+ *   uint16_t pgInstance:   Index of the selected PWM generator (1=PG1, 2=PG2, etc.)
+ * 
+ * Returns:
+ *   struct P33C_PWM_GENERATOR_s:
+ *      PWM generator object of the selected PWM generator instance
+ *  
+ * Description:
+ *      This function returns the PWM generator index, the PWM generator group
+ *      (1 = [PG1-PG4], 2 = [PG5-PG8]) and the address pointer (handle) of
+ *      the PWM generator Special Function Register set. handle can be used
+ *      to directly read from/write to PWM registers of the selected PWM 
+ *      generator with zero API overhead.
+ * 
+ * ********************************************************************************/
+
+volatile struct P33C_PWM_MODULE_SFRSET_s* p33c_PwmModule_GetHandle(void)
+{
+    volatile struct P33C_PWM_MODULE_SFRSET_s* pwm;
+    
+    // Capture Handle: set pointer to memory address of desired PWM instance
+    pwm = (volatile struct P33C_PWM_MODULE_SFRSET_s*) ((volatile uint8_t*)&PCLKCON);
+    
+    return(pwm);
 }
 
 /* @@p33c_PwmModule_Dispose
@@ -641,11 +672,11 @@ volatile uint16_t p33c_PwmGenerator_GetGroup(volatile struct P33C_PWM_GENERATOR_
     if (pg == NULL)
         return(0);
 
-    // ToDo: Add Code for GetGroup of PWM generator
+    // Get group of PWM generator
     pgInstance = (volatile uint16_t)
         (((volatile uint16_t)&pg->PGxCONL - (volatile uint16_t)&PG1CONL) / P33C_PWMGEN_SFR_OFFSET + 1);
     
-    // Detect PWM generator groups
+    // Verify PWM generator group is valid and available
     if (pgInstance > P33C_PG_COUNT)
         return(0); // PWM generator not member of a valid group 
     else if (pgInstance > 4)
@@ -711,7 +742,11 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
     volatile uint16_t pgMotherGroup=0, pgChildGroup=0;
     volatile uint16_t pgInstance;
     
-    // ToDo: Add Code using new xxx_GetInstance and xxx_GetGroup functions
+    // Null-pointer protection
+    if ((pgHandleMother == NULL) || (pgHandleChild == NULL))
+        return(0);
+    
+    // Capture PWM generator instances and groups for given handles
     pgMotherInstance = p33c_PwmGenerator_GetInstance(pgHandleMother);
     pgMotherGroup = p33c_PwmGenerator_GetGroup(pgHandleMother);
     
