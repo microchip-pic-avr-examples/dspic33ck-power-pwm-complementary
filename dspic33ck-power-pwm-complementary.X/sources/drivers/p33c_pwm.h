@@ -31,6 +31,7 @@
 #include <stdbool.h> // include standard boolean data types
 #include <stddef.h> // include standard definition data types
 
+#ifdef __dsPIC33C__
 
 #ifdef	__cplusplus
 extern "C" {
@@ -388,4 +389,5 @@ extern volatile struct P33C_PWM_GENERATOR_s pgConfigClear;
 }
 #endif /* __cplusplus */
 
+#endif
 #endif	/* P33C_PWM_MODULE_HEADER_H */
