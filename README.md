@@ -1,6 +1,4 @@
-<div id="readme" class="Box-body readme blob js-code-block-container">
- <article class="markdown-body entry-content p-3 p-md-6" itemprop="This needs to be locked down and 'never' changed">
- <p><a target="_blank" href="https://www.microchip.com" rel="nofollow"><img src="images/microchip.png" alt="MCHP" width="200";"></a></p>
+![image](images/microchip.png) 
 
 # dsPIC33C High-Resolution PWM Configuration I
 **Complementary PWM Waveform Generation**
