@@ -6,6 +6,6 @@ This example is part of a series of code examples highlighting specific operatin
 
 ### Features Added\Updated
 In this initial version the on-board LED of the dsPIC33CK Digital Power Plug-In Module is toggled with a interval period of 300 ms, when the controller is running at maximum speed of 100 MIPS.
-After startup, PWM generator #3 is generating a 200 kHz complementary waveform at the PWM3H/PWM3L outputs. By pressing the on-board push button *USER* on the Digital Power Develpoment Board, the switching frequency is toggled between the initial 200 kHz and 1 MHz.
+After startup, PWM generator #3 is generating a 200 kHz complementary waveform at the PWM3H/PWM3L outputs. By pressing the on-board push button *USER* on the Digital Power Development Board, the switching frequency is toggled between the initial 200 kHz and 1 MHz.
 
 
