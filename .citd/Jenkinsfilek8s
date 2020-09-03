@@ -76,7 +76,7 @@ pipeline {
                     anyOf {
                         allOf {
                             not { changeRequest() }
-                            anyOf {branch 'master'; branch 'test_deploy';}
+                            anyOf {branch 'master';}
                         }
                     }
             }
@@ -107,7 +107,6 @@ pipeline {
                     
                     String [] topics = jsonObj.content.keywords
                     def asString = topics.join(", ")
-                    asString = asString.replace("\n", "").replace(" ", "").replace("\t", "").replace("\r", "")
 					Boolean visibility =  true
 					if(env.GITHUB_URL == env.GITHUB_PRODUCTION_DEPLOY_URL)
 					{
@@ -115,7 +114,7 @@ pipeline {
 					}
                     
                     withCredentials([usernamePassword(credentialsId: "${env.GITHUB_CREDENTIAL_ID}", passwordVariable: 'PASS', usernameVariable: 'USER_NAME')]) {
-                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rpo=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=${jsonObj.content.projectName} -rpd=\"${jsonObj.content.shortDescription}\" -rpt=${asString} -rpp=${visibility}")
+                        execute("python tool-github-deploy/tool-github-deploy/tool-github-deploy.py -rpo=true -gpat=$PASS -rporg=${env.GITHUB_URL} -rpn=${jsonObj.content.projectName} -rpd=\"${jsonObj.content.shortDescription}\" -rpt=\"${asString}\" -rpp=${visibility}")
                     }
                 }
             }
