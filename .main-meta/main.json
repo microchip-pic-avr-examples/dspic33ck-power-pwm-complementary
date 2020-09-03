@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "displayName": "dsPIC33CK/CH-MP PWM Configuration: Complementary PWM Output",
     "projectName": "dspic33ck-power-pwm-complementary",
-    "shortDescription": "Complementary PWM Output Configuration Example for dsPIC33CK/CH-MP devices",
+    "shortDescription": "Complementary PWM Output Configuration Example for dsPIC33CK-MP devices",
 	"ide": {
 		"name": "MPLABX",
 		"semverRange": ">=5.40.0"
