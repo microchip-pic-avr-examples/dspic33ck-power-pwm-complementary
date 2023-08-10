@@ -60,7 +60,7 @@
  *   is added (100ns at rising edge of PWMxH and 150ns at falling edge of
  *   PWMxH). The initial frequency after startup is set to 200 kHz. By
  *   pressing push button [USER], the frequency is stepped to 1 MHz. By 
- *   pressing [USER] again, the frequency switches back to 200 khz,
+ *   pressing [USER] again, the frequency switches back to 200 kHz,
  *   The duty ratio will always remain 25% of the switching period.
  * 
  * Please note:
