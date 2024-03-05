@@ -387,9 +387,12 @@ volatile uint16_t p33c_PwmGenerator_Enable(volatile struct P33C_PWM_GENERATOR_s*
     // If high resolution mode is enabled, check if clock has locked in without errors
     if(pg->PGxCONL.bits.HREN)
     {
+        // wait until high resolution mode is ready
         while((!PCLKCONbits.HRRDY) && (timeout++<5000));
-         if ((timeout >= 5000) || (PCLKCONbits.HRERR)) // if there is an error
-            return(0);  // return ERROR     
+        
+        // Exit if timeout occurs 
+        if ((timeout >= 5000) || (PCLKCONbits.HRERR)) 
+        { return(0); } // return ERROR     
         
     }
     
@@ -738,7 +741,7 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
     )
 {
     volatile uint16_t retval=1;
-    volatile uint16_t pgMotherInstance=0, pgChildInstance=0;
+    volatile uint16_t pgMotherInstance=0; //, pgChildInstance=0;
     volatile uint16_t pgMotherGroup=0, pgChildGroup=0;
     volatile uint16_t pgInstance;
     
@@ -750,7 +753,7 @@ volatile uint16_t p33c_PwmGenerator_SyncGenerators(
     pgMotherInstance = p33c_PwmGenerator_GetInstance(pgHandleMother);
     pgMotherGroup = p33c_PwmGenerator_GetGroup(pgHandleMother);
     
-    pgChildInstance = p33c_PwmGenerator_GetInstance(pgHandleChild);
+//    pgChildInstance = p33c_PwmGenerator_GetInstance(pgHandleChild);
     pgChildGroup = p33c_PwmGenerator_GetGroup(pgHandleChild);
     
     // Enable update trigger broadcast in Mother PWM
