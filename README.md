@@ -2,7 +2,7 @@
 
 # dsPIC33C High-Resolution PWM Configuration I
 
-**Complementary PWM Waveform Generation**
+## Complementary PWM Waveform Generation
 
 <p><center><a target="_blank" href="https://www.microchip.com/MA330048" rel="nofollow">
 <img src="images/ma330048.jpg" alt="dsPIC33CK Digital Power Plug-In Module" width="300"></a></center></p>
@@ -35,20 +35,25 @@ Alternative Controller Plug-In Module:
 
 ## Software Used
 
-- [MPLAB&reg; X IDE v6.05](https://www.microchip.com/mplabx)
-- [MPLAB&reg; XC16 Compiler v2.00](https://www.microchip.com/xc16)
-- [MPLAB&reg; Code Configurator v4.85](https://www.microchip.com/mcc)
+- [MPLAB&reg; X IDE v6.20](https://www.microchip.com/mplabx)
+- [MPLAB&reg; XC-DSC Compiler v3.00](https://www.microchip.com/xc16)
+- [MPLAB&reg; Code Configurator v5.7.0](https://www.microchip.com/mcc)
 
 ## Hardware Used
 
 - Digital Power Development Board, Part-No. [DM330029](https://www.microchip.com/DM330029)
 - dsPIC33CK Digital Power Plug-In Module (DP PIM), Part-No. [MA330048](https://www.microchip.com/MA330048)
-- Alternatively: dsPIC33CH Digital Power Plug-In Module (DP PIM), Part-No. [MA330049](https://www.microchip.com/MA330049)
+- Alternative Plug-In Modules:
+  - dsPIC33CK512MP606 Digital Power Plug-In Module (DP PIM), Part-No. [EV12Y79A](https://www.microchip.com/EV12Y79A)
+  - dsPIC33CH Digital Power Plug-In Module (DP PIM), Part-No. [MA330049](https://www.microchip.com/MA330049)
 
-## Supported Target Devices
+## Supported/Compatible Target Device Families
 
-- [dsPIC33CK256MP506](https://www.microchip.com/dsPIC33CK256MP506)
-- [dsPIC33CH512MP506](https://www.microchip.com/dsPIC33CH512MP506)
+- [dsPIC33CK64MP105](https://www.microchip.com/dsPIC33CK64MP105)
+- [dsPIC33CK256MP508](https://www.microchip.com/dsPIC33CK256MP508)
+- [dsPIC33CK512MP608](https://www.microchip.com/dsPIC33CK512MP608)
+- [dsPIC33CK1024MP710](https://www.microchip.com/dsPIC33CK1024MP710)
+- [dsPIC33CH512MP508](https://www.microchip.com/dsPIC33CH512MP508)
 - Code compatible with all Single and Dual Core dsPIC33C MP families of devices
 
 - - -
@@ -112,4 +117,4 @@ This code has been written to automatically start up and perform the function of
 
 - - -
 
-&copy; 2023, Microchip Technology Inc.
+&copy; 2024, Microchip Technology Inc.

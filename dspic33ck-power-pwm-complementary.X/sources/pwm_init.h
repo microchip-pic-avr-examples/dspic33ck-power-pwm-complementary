@@ -46,9 +46,9 @@ extern "C" {
 // PWM declarations for demo code
 // PWM1: H=TP45, L=TP47
 // PWM2: H=TP42, L=TP40
-// PWM3: H=TP37, L=TP41
+// PWM3: H=TP37, L=TP41 (demo default)
 // PWM4: H=TP43, L=TP44
-#define MY_PWM_GENERATOR    1           // Specify index of PWM generator instance (1=PG1, 2=PG2, 3=PG3, etc.)
+#define MY_PWM_GENERATOR    3           // Specify index of PWM generator instance (1=PG1, 2=PG2, 3=PG3, etc.)
     
 /* Declare global, user-defined PWM generator object */    
 extern volatile struct P33C_PWM_GENERATOR_s* my_pg;    // user-defined PWM generator object 
