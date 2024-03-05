@@ -33,9 +33,7 @@
 #define	XC_PWM_INITIALIZATION_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-
 #include "drivers/p33c_pwm.h" // Include dsPIC33C standard PWM driver header file
-
 
 #ifdef	__cplusplus
 extern "C" {
@@ -46,7 +44,11 @@ extern "C" {
  * ********************************************************************************/    
 
 // PWM declarations for demo code
-#define MY_PWM_GENERATOR    3           // Specify index of PWM generator instance (1=PG1, 3=PG2, etc)
+// PWM1: H=TP45, L=TP47
+// PWM2: H=TP42, L=TP40
+// PWM3: H=TP37, L=TP41
+// PWM4: H=TP43, L=TP44
+#define MY_PWM_GENERATOR    1           // Specify index of PWM generator instance (1=PG1, 2=PG2, 3=PG3, etc.)
     
 /* Declare global, user-defined PWM generator object */    
 extern volatile struct P33C_PWM_GENERATOR_s* my_pg;    // user-defined PWM generator object 

@@ -97,10 +97,10 @@
  *  - dsPIC33CK Digital Power Plug-In Module (MA330048)
  *
  * Software:
- *  - MPLAB X IDE, v5.40
- *  - Microchip Code Configuration (MCC), v3.95.0
- *  - XC16 C-Compiler, v1.50
- *  - dsPIC33CK-MP Device File Pack v1.4.102
+ *  - MPLAB X IDE, v6.20
+ *  - Microchip Code Configuration (MCC), v4.05.0
+ *  - XC-DSC C-Compiler, v3.00
+ *  - dsPIC33CK-MP Device File Pack v1.13.366
  * 
  * ********************************************************************* */  
 
