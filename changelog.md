@@ -1,3 +1,27 @@
+# dspic33ck-power-pwm-complementary, release v1.2.0
+
+## Release Highlights
+
+Version 1.2.0 of this code example is a maintenance cycle release, which is required to keep the source code provided being fully supported by the most recent development tool chain. In this release no functional changes have been made in comparison with the previous version.
+
+### Toolchain Updates
+
+* Changed minimum MPLAB X IDE version to 6.20 and later - [Get latest Version](https://www.microchip.com/mplabx)
+* Changed minimum XC-DSC compiler version to v3.00 - [Get latest Version](https://www.microchip.com/xc16)
+* Changed minimum Device File Pack (DFP) version to 1.14.376
+* Microchip Code Configurator Update
+  * Updated MCC Plug-In version to require v5.7.0 or later
+  * Updated mc3 file contents to work with core version v5.7.0 or later
+
+### Features Added\Updated
+
+* Removed empty virtual folder 'config' from section Sources in MPLAB X project explorer
+* Changed label of PWM Module register set from P33C_PWM_SFRSET_t to P33C_PWM_MODULE_t
+
+&copy; 2024, Microchip Technology Inc.
+
+- - -
+
 # dspic33ck-power-pwm-complementary, release v1.1.0
 
 ### Release Highlights
